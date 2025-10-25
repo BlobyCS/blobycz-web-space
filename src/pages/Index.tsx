@@ -8,38 +8,24 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden">
-      {/* Ultra Modern Animated Blur Circles */}
+      {/* Figma-Style Subtle Blur Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* Large primary blur */}
-        <div className="absolute top-0 -left-1/4 w-[600px] h-[600px] bg-primary/40 rounded-full blur-[150px] animate-float opacity-50" />
+        {/* Main blur - top center */}
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[150px] opacity-40" />
         
-        {/* Secondary blue blur */}
+        {/* Secondary blur - right */}
         <div 
-          className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-secondary/30 rounded-full blur-[120px] animate-float opacity-40" 
-          style={{ animationDelay: "1s", animationDuration: "4s" }} 
+          className="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[140px] opacity-30" 
         />
         
-        {/* Bottom left accent */}
+        {/* Tertiary blur - bottom left */}
         <div 
-          className="absolute bottom-0 left-1/4 w-[450px] h-[450px] bg-primary/35 rounded-full blur-[130px] animate-float opacity-45" 
-          style={{ animationDelay: "2s", animationDuration: "5s" }} 
-        />
-        
-        {/* Center accent */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-secondary/25 rounded-full blur-[100px] animate-float opacity-30" 
-          style={{ animationDelay: "0.5s", animationDuration: "6s" }} 
-        />
-        
-        {/* Additional small accents */}
-        <div 
-          className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-primary/30 rounded-full blur-[90px] animate-float opacity-35" 
-          style={{ animationDelay: "1.5s", animationDuration: "4.5s" }} 
+          className="absolute -bottom-40 -left-40 w-[700px] h-[700px] bg-primary/15 rounded-full blur-[160px] opacity-35" 
         />
       </div>
 
-      {/* Gradient Overlay for depth */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-background/50 via-transparent to-background/50 pointer-events-none"></div>
+      {/* Subtle gradient overlay */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-background/60 via-transparent to-background/60 pointer-events-none"></div>
 
       <Navbar />
       <Hero />

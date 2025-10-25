@@ -8,58 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 45% 3%;
+    --background: 222 47% 2%;
     --foreground: 210 40% 98%;
 
-    --card: 220 35% 6%;
+    --card: 220 40% 4%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 220 35% 6%;
+    --popover: 220 40% 4%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 217 91% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 100% 45%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 25% 12%;
-    --muted-foreground: 215 20% 70%;
+    --muted: 220 30% 8%;
+    --muted-foreground: 215 25% 65%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 217 91% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 30% 15%;
-    --input: 220 30% 15%;
-    --ring: 217 91% 60%;
+    --border: 220 35% 12%;
+    --input: 220 35% 12%;
+    --ring: 217 91% 65%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
-    /* Ultra Modern Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(200 100% 50%) 50%, hsl(217 91% 70%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(200 100% 45%) 0%, hsl(217 91% 60%) 100%);
-    --gradient-bg: radial-gradient(ellipse at top, hsl(217 91% 15%) 0%, hsl(220 45% 3%) 50%, hsl(220 50% 2%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(220 35% 8% / 0.4), hsl(217 50% 15% / 0.3));
-    --gradient-border: linear-gradient(135deg, hsl(217 91% 60%), hsl(200 100% 50%));
-    --gradient-text: linear-gradient(135deg, hsl(217 91% 70%), hsl(200 100% 60%));
+    /* Figma-Style Gradients - Subtle & Clean */
+    --gradient-primary: linear-gradient(120deg, hsl(217 91% 65%) 0%, hsl(200 100% 55%) 100%);
+    --gradient-secondary: linear-gradient(120deg, hsl(200 100% 50%) 0%, hsl(240 100% 60%) 100%);
+    --gradient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, hsl(217 91% 12%) 0%, hsl(222 47% 2%) 40%, hsl(222 50% 1%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 40% 5% / 0.6), hsl(217 50% 8% / 0.4));
+    --gradient-border: linear-gradient(120deg, hsl(217 91% 65% / 0.5), hsl(200 100% 55% / 0.5));
+    --gradient-text: linear-gradient(120deg, hsl(217 91% 75%), hsl(200 100% 65%));
     
-    /* Advanced Glass Effects */
-    --glass-bg: hsl(220 35% 15% / 0.25);
-    --glass-border: hsl(217 91% 60% / 0.3);
-    --glass-strong: hsl(220 35% 10% / 0.6);
+    /* Figma Glass Effects - More Subtle */
+    --glass-bg: hsl(220 40% 8% / 0.4);
+    --glass-border: hsl(217 91% 65% / 0.15);
+    --glass-hover: hsl(220 40% 10% / 0.6);
     
-    /* Enhanced Shadows & Glows */
-    --shadow-glow: 0 0 60px hsl(217 91% 60% / 0.4), 0 0 100px hsl(200 100% 50% / 0.2);
-    --shadow-glow-strong: 0 0 80px hsl(217 91% 60% / 0.6), 0 0 120px hsl(200 100% 50% / 0.3);
-    --shadow-card: 0 20px 60px hsl(220 45% 3% / 0.6), 0 0 40px hsl(217 91% 60% / 0.1);
-    --shadow-subtle: 0 4px 20px hsl(220 45% 3% / 0.3);
+    /* Figma Shadows - Softer & Layered */
+    --shadow-sm: 0 2px 8px hsl(222 47% 2% / 0.4);
+    --shadow-md: 0 4px 16px hsl(222 47% 2% / 0.5), 0 0 40px hsl(217 91% 65% / 0.08);
+    --shadow-lg: 0 8px 32px hsl(222 47% 2% / 0.6), 0 0 60px hsl(217 91% 65% / 0.12);
+    --shadow-glow: 0 0 40px hsl(217 91% 65% / 0.25), 0 8px 32px hsl(217 91% 65% / 0.15);
+    --shadow-glow-hover: 0 0 60px hsl(217 91% 65% / 0.35), 0 12px 48px hsl(217 91% 65% / 0.2);
     
-    /* Smooth Transitions */
+    /* Figma Transitions - Smooth & Natural */
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 

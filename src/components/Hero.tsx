@@ -1,51 +1,55 @@
 const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-5xl mx-auto text-center">
-        <div className="animate-fade-in space-y-8">
-          {/* Main Title with Gradient */}
+      <div className="max-w-6xl mx-auto text-center">
+        <div className="animate-fade-in space-y-12">
+          {/* Main Title - Figma Style */}
           <div className="relative inline-block">
-            <div className="absolute -inset-4 bg-gradient-primary blur-3xl opacity-30 animate-glow"></div>
-            <h1 className="relative text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-6 bg-gradient-text bg-clip-text text-transparent tracking-tight">
+            <div className="absolute -inset-8 bg-gradient-primary blur-[100px] opacity-20"></div>
+            <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black mb-8 bg-gradient-text bg-clip-text text-transparent tracking-tighter leading-none">
               BlobyCZ
             </h1>
           </div>
           
-          {/* Subtitle with Border */}
-          <div className="relative inline-block">
-            <div className="absolute -inset-1 bg-gradient-border rounded-2xl blur opacity-40"></div>
-            <div className="relative bg-card/40 backdrop-blur-xl border border-primary/30 rounded-2xl px-8 py-4">
-              <p className="text-2xl sm:text-3xl md:text-4xl text-foreground/90 font-semibold">
-                Full Stack Developer
+          {/* Subtitle - Clean & Minimal */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl">
+              <div className="w-2 h-2 rounded-full bg-gradient-primary animate-pulse"></div>
+              <p className="text-xl sm:text-2xl text-foreground/90 font-semibold tracking-tight">
+                Discord Bot Developer
+              </p>
+            </div>
+            
+            <div className="inline-block px-4 py-2 bg-muted/30 backdrop-blur-sm rounded-xl border border-border/30">
+              <p className="text-base text-muted-foreground font-medium">
+                + Java Developer
               </p>
             </div>
           </div>
           
-          {/* Description */}
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Vytvářím moderní webové aplikace a Discord boty s využitím nejnovějších technologií.
-            Specializuji se na čisté kódování a inovativní řešení.
+          {/* Description - Figma Typography */}
+          <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto leading-relaxed font-light px-4">
+            Vytvářím Discord boty a Minecraft pluginy s čistým kódem a moderním designem.
           </p>
           
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+          {/* CTA Buttons - Minimal & Clean */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a
               href="#projects"
-              className="group relative"
+              className="group relative inline-flex items-center justify-center"
             >
-              <div className="absolute -inset-1 bg-gradient-primary rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-glow"></div>
-              <div className="relative px-10 py-5 bg-gradient-primary rounded-2xl font-bold text-lg shadow-glow hover:shadow-glow-strong transition-all duration-300 transform hover:scale-105">
+              <div className="absolute -inset-0.5 bg-gradient-primary rounded-2xl opacity-75 group-hover:opacity-100 blur-sm transition duration-300"></div>
+              <div className="relative px-8 py-4 bg-gradient-primary rounded-2xl font-semibold text-base transition-transform duration-300 group-hover:scale-[1.02]">
                 Zobrazit projekty
               </div>
             </a>
             <a
               href="#contact"
-              className="group relative"
+              className="group relative inline-flex items-center justify-center"
             >
-              <div className="absolute -inset-1 bg-gradient-secondary rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative px-10 py-5 bg-card/60 backdrop-blur-xl border-2 border-primary/40 rounded-2xl font-bold text-lg hover:border-primary/60 transition-all duration-300 transform hover:scale-105">
+              <div className="relative px-8 py-4 bg-card/50 backdrop-blur-xl border border-border/50 rounded-2xl font-semibold text-base hover:border-primary/30 hover:bg-card/70 transition-all duration-300">
                 <span className="bg-gradient-text bg-clip-text text-transparent">
-                  Kontaktovat
+                  Kontakt
                 </span>
               </div>
             </a>
