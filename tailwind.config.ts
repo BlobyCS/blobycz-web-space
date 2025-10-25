@@ -50,8 +50,17 @@ export default {
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
         'gradient-bg': 'var(--gradient-bg)',
         'gradient-card': 'var(--gradient-card)',
+        'gradient-border': 'var(--gradient-border)',
+        'gradient-text': 'var(--gradient-text)',
+      },
+      boxShadow: {
+        'glow': 'var(--shadow-glow)',
+        'glow-strong': 'var(--shadow-glow-strong)',
+        'card': 'var(--shadow-card)',
+        'subtle': 'var(--shadow-subtle)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -83,8 +92,26 @@ export default {
           "50%": { transform: "translateY(-20px)" }
         },
         "glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(217 91% 60% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(217 91% 60% / 0.6)" }
+          "0%, 100%": { boxShadow: "0 0 30px hsl(217 91% 60% / 0.4), 0 0 60px hsl(200 100% 50% / 0.2)" },
+          "50%": { boxShadow: "0 0 60px hsl(217 91% 60% / 0.6), 0 0 100px hsl(200 100% 50% / 0.3)" }
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" }
+        },
+        "border-glow": {
+          "0%, 100%": { 
+            borderColor: "hsl(217 91% 60% / 0.3)",
+            boxShadow: "0 0 20px hsl(217 91% 60% / 0.2)"
+          },
+          "50%": { 
+            borderColor: "hsl(200 100% 50% / 0.5)",
+            boxShadow: "0 0 40px hsl(200 100% 50% / 0.3)"
+          }
+        },
+        "shimmer": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" }
         },
       },
       animation: {
@@ -94,6 +121,9 @@ export default {
         "fade-in-left": "fade-in-left 0.6s ease-out",
         "float": "float 3s ease-in-out infinite",
         "glow": "glow 2s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 3s ease-in-out infinite",
+        "border-glow": "border-glow 2s ease-in-out infinite",
+        "shimmer": "shimmer 2s ease-in-out infinite",
       },
     },
   },
