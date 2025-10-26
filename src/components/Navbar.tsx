@@ -24,84 +24,81 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-glass-bg backdrop-blur-2xl border-b border-glass-border shadow-sm"
+          ? "bg-card/30 backdrop-blur-2xl border-b border-border/50"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent tracking-tight">
+          <div className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent">
             BlobyCZ
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop Menu - Minimal */}
+          <div className="hidden md:flex items-center space-x-1">
             <button
               onClick={() => scrollToSection("about")}
-              className="px-5 py-2.5 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/30"
+              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
             >
               O mně
             </button>
             <button
               onClick={() => scrollToSection("skills")}
-              className="px-5 py-2.5 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/30"
+              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
             >
               Skills
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="px-5 py-2.5 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/30"
+              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
             >
               Projekty
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="group relative ml-2 overflow-hidden"
+              className="ml-2 px-6 py-2 bg-gradient-primary rounded-xl font-medium text-sm transition-all duration-200 hover:shadow-md"
             >
-              <div className="absolute inset-0 bg-gradient-primary opacity-90 group-hover:opacity-100 transition-opacity rounded-xl"></div>
-              <span className="relative px-6 py-2.5 font-medium text-sm text-white">
-                Kontakt
-              </span>
+              Kontakt
             </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-foreground p-2.5 hover:bg-muted/30 rounded-xl transition-colors"
+            className="md:hidden text-foreground p-2 hover:bg-muted/20 rounded-xl transition-colors"
           >
-            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-glass-bg backdrop-blur-2xl border-t border-glass-border">
-          <div className="px-6 py-6 space-y-2">
+        <div className="md:hidden bg-card/40 backdrop-blur-2xl border-b border-border/50">
+          <div className="px-4 py-6 space-y-2">
             <button
               onClick={() => scrollToSection("about")}
-              className="block w-full text-left px-5 py-3.5 text-muted-foreground hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
             >
               O mně
             </button>
             <button
               onClick={() => scrollToSection("skills")}
-              className="block w-full text-left px-5 py-3.5 text-muted-foreground hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
             >
               Skills
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="block w-full text-left px-5 py-3.5 text-muted-foreground hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
             >
               Projekty
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="block w-full text-left px-5 py-3.5 bg-gradient-primary rounded-xl font-medium text-sm text-white mt-2"
+              className="block w-full text-left px-4 py-3 bg-gradient-primary rounded-xl font-medium text-sm mt-2"
             >
               Kontakt
             </button>
