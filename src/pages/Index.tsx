@@ -8,25 +8,19 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden">
-      {/* Figma-Style Subtle Blur Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* Main blur - top center */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[150px] opacity-40" />
+    <div className="min-h-screen bg-background relative overflow-x-hidden">
+      {/* Ultra Modern Blur Background */}
+      <div className="fixed inset-0 -z-10">
+        {/* Primary Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-gradient-primary opacity-10 blur-[140px] rounded-full" />
         
-        {/* Secondary blur - right */}
-        <div 
-          className="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[140px] opacity-30" 
-        />
-        
-        {/* Tertiary blur - bottom left */}
-        <div 
-          className="absolute -bottom-40 -left-40 w-[700px] h-[700px] bg-primary/15 rounded-full blur-[160px] opacity-35" 
-        />
+        {/* Accent Glows */}
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-gradient-secondary opacity-8 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[600px] bg-gradient-primary opacity-8 blur-[130px] rounded-full" />
       </div>
 
-      {/* Subtle gradient overlay */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-background/60 via-transparent to-background/60 pointer-events-none"></div>
+      {/* Subtle Gradient Overlay */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-background via-transparent to-background/80 pointer-events-none"></div>
 
       <Navbar />
       <Hero />

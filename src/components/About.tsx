@@ -1,41 +1,44 @@
 const About = () => {
   return (
-    <section id="about" className="py-32 px-4 relative">
+    <section id="about" className="py-32 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-text bg-clip-text text-transparent">
+        <div className="text-center mb-20 animate-fade-in">
+          <h2 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-text bg-clip-text text-transparent">
             O mně
           </h2>
-          <div className="h-1 w-20 bg-gradient-primary mx-auto rounded-full"></div>
+          <div className="h-1 w-16 bg-gradient-primary mx-auto rounded-full"></div>
         </div>
 
         {/* Content Card */}
-        <div className="relative group animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          {/* Glow effect */}
-          <div className="absolute -inset-0.5 bg-gradient-primary rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+        <div className="group relative animate-scale-in">
+          {/* Glow Background */}
+          <div className="absolute -inset-1 bg-gradient-primary rounded-3xl opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-500"></div>
           
-          {/* Main card */}
-          <div className="relative bg-glass-bg backdrop-blur-xl border border-glass-border rounded-2xl p-8 md:p-12 shadow-lg">
-            <div className="space-y-6">
+          {/* Main Card */}
+          <div className="relative bg-glass-bg backdrop-blur-xl border border-glass-border rounded-3xl p-10 md:p-14 shadow-xl transition-all duration-300 group-hover:border-primary/20">
+            <div className="space-y-8">
               {/* Greeting */}
-              <p className="text-xl md:text-2xl font-semibold text-foreground">
+              <p className="text-2xl md:text-3xl font-bold text-foreground">
                 Ahoj, jsem <span className="bg-gradient-text bg-clip-text text-transparent">Bloby</span>.
               </p>
               
-              {/* Main content */}
-              <p className="text-lg text-foreground/80 leading-relaxed">
+              {/* Main Content */}
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 Pocházím z Brna a mám rád technologie, hudbu a dělání smysluplných projektů. 
                 Kóďím převážně v Javě a JavaScriptu, tvořím Minecraft pluginy, Discord boty a NPM balíčky. 
                 Baví mě zkoušet nové věci a experimentovat s různými nápady.
               </p>
 
-              {/* Decorative elements */}
-              <div className="flex items-center gap-3 pt-4">
-                <div className="h-1 flex-1 bg-gradient-primary rounded-full opacity-30"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/50"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/30"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/10"></div>
+              {/* Decorative Line */}
+              <div className="flex items-center gap-4 pt-6">
+                <div className="h-px flex-1 bg-gradient-primary opacity-20"></div>
+                <div className="flex gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/40"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/20"></div>
+                </div>
+                <div className="h-px flex-1 bg-gradient-primary opacity-20"></div>
               </div>
             </div>
           </div>
