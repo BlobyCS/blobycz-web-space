@@ -7,7 +7,9 @@ const Hero = () => {
           <div className="relative inline-block">
             <div className="absolute -inset-8 bg-gradient-primary blur-[100px] opacity-20"></div>
             <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black mb-8 bg-gradient-text bg-clip-text text-transparent tracking-tighter leading-none">
-              BlobyCZ
+              Bloby<span className="relative inline-block">
+                <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-2xl sm:text-3xl md:text-4xl">👾</span>
+              </span>CZ
             </h1>
           </div>
           
