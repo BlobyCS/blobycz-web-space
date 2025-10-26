@@ -25,9 +25,9 @@ const About = () => {
               
               {/* Main content */}
               <p className="text-lg text-foreground/80 leading-relaxed">
-                Pocházím z Brna a mám rád technologie, hudbu a děláním smysluplných projektů. 
-                Kóďím převážně v Javě a JavaScriptu - tvořím Minecraft pluginy, Discord boty a NPM balíčky. 
-                Baví mě zkoušet nový věci a experimentovat s různými nápady.
+                Pocházím z Brna a mám rád technologie, hudbu a dělání smysluplných projektů. 
+                Kóďím převážně v Javě a JavaScriptu, tvořím Minecraft pluginy, Discord boty a NPM balíčky. 
+                Baví mě zkoušet nové věci a experimentovat s různými nápady.
               </p>
 
               {/* Decorative elements */}
