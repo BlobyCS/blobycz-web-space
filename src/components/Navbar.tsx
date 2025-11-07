@@ -24,13 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-card/10 backdrop-blur-xl border-b border-border/30"
-          : "bg-transparent"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="text-xl font-bold bg-gradient-text bg-clip-text text-transparent">
@@ -74,7 +68,7 @@ const Navbar = () => {
             
             <div className="flex items-center gap-2 pl-4 border-l border-border/30">
               <a
-                href="https://github.com/BlobyCZ"
+                href="https://github.com/bloby22"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
@@ -82,7 +76,7 @@ const Navbar = () => {
                 <Github size={20} />
               </a>
               <a
-                href="https://discord.com/users/YOUR_DISCORD_ID"
+                href="https://discord.com/users/1178258199590228078"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
@@ -90,7 +84,7 @@ const Navbar = () => {
                 <SiDiscord size={20} />
               </a>
               <a
-                href="https://instagram.com/YOUR_INSTAGRAM"
+                href="https://instagram.com/blobycz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
@@ -150,7 +144,7 @@ const Navbar = () => {
             
             <div className="flex items-center justify-center gap-4 pt-4 mt-4 border-t border-border/30">
               <a
-                href="https://github.com/BlobyCZ"
+                href="https://github.com/bloby22"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
@@ -158,7 +152,7 @@ const Navbar = () => {
                 <Github size={20} />
               </a>
               <a
-                href="https://discord.com/users/YOUR_DISCORD_ID"
+                href="https://discord.com/users/1178258199590228078"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
@@ -166,7 +160,7 @@ const Navbar = () => {
                 <SiDiscord size={20} />
               </a>
               <a
-                href="https://instagram.com/YOUR_INSTAGRAM"
+                href="https://instagram.com/blobycz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"

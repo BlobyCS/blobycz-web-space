@@ -5,10 +5,13 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden">
+    <>
+      <LoadingScreen />
+      <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden">
       {/* Figma-Style Subtle Blur Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         {/* Main blur - top center */}
@@ -36,6 +39,7 @@ const Index = () => {
       <Contact />
       <Footer />
     </div>
+    </>
   );
 };
 
