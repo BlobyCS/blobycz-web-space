@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Github, Instagram } from "lucide-react";
+import { SiDiscord } from "react-icons/si";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,7 +27,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-card/30 backdrop-blur-2xl border-b border-border/50"
+          ? "bg-card/10 backdrop-blur-xl border-b border-border/30"
           : "bg-transparent"
       }`}
     >
@@ -36,32 +37,67 @@ const Navbar = () => {
             BlobyCZ
           </div>
 
-          {/* Desktop Menu - Minimal */}
-          <div className="hidden md:flex items-center space-x-1">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
-            >
-              O mně
-            </button>
-            <button
-              onClick={() => scrollToSection("skills")}
-              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
-            >
-              Skills
-            </button>
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-xl hover:bg-muted/20"
-            >
-              Projekty
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="ml-2 px-6 py-2 bg-gradient-primary rounded-xl font-medium text-sm transition-all duration-200 hover:shadow-md"
-            >
-              Kontakt
-            </button>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-lg hover:bg-muted/10"
+              >
+                Domů
+              </button>
+              <button
+                onClick={() => scrollToSection("about")}
+                className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-lg hover:bg-muted/10"
+              >
+                O mě
+              </button>
+              <button
+                onClick={() => scrollToSection("skills")}
+                className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-lg hover:bg-muted/10"
+              >
+                Skills
+              </button>
+              <button
+                onClick={() => scrollToSection("projects")}
+                className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-lg hover:bg-muted/10"
+              >
+                Projekty
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="px-4 py-2 text-foreground/60 hover:text-foreground transition-colors text-sm font-medium rounded-lg hover:bg-muted/10"
+              >
+                Kontakt
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-2 pl-4 border-l border-border/30">
+              <a
+                href="https://github.com/BlobyCZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <Github size={20} />
+              </a>
+              <a
+                href="https://discord.com/users/YOUR_DISCORD_ID"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <SiDiscord size={20} />
+              </a>
+              <a
+                href="https://instagram.com/YOUR_INSTAGRAM"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,32 +112,68 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card/40 backdrop-blur-2xl border-b border-border/50">
+        <div className="md:hidden bg-card/10 backdrop-blur-xl border-b border-border/30">
           <div className="px-4 py-6 space-y-2">
             <button
-              onClick={() => scrollToSection("about")}
-              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/20 rounded-lg transition-all text-sm font-medium"
             >
-              O mně
+              Domů
+            </button>
+            <button
+              onClick={() => scrollToSection("about")}
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/20 rounded-lg transition-all text-sm font-medium"
+            >
+              O mě
             </button>
             <button
               onClick={() => scrollToSection("skills")}
-              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/20 rounded-lg transition-all text-sm font-medium"
             >
               Skills
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/30 rounded-xl transition-all text-sm font-medium"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/20 rounded-lg transition-all text-sm font-medium"
             >
               Projekty
             </button>
             <button
               onClick={() => scrollToSection("contact")}
-              className="block w-full text-left px-4 py-3 bg-gradient-primary rounded-xl font-medium text-sm mt-2"
+              className="block w-full text-left px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted/20 rounded-lg transition-all text-sm font-medium"
             >
               Kontakt
             </button>
+            
+            <div className="flex items-center justify-center gap-4 pt-4 mt-4 border-t border-border/30">
+              <a
+                href="https://github.com/BlobyCZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <Github size={20} />
+              </a>
+              <a
+                href="https://discord.com/users/YOUR_DISCORD_ID"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <SiDiscord size={20} />
+              </a>
+              <a
+                href="https://instagram.com/YOUR_INSTAGRAM"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-muted/10"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
           </div>
         </div>
       )}
