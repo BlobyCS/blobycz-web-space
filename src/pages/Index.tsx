@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -8,10 +9,14 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
+  const [showContent, setShowContent] = useState(false);
+
+  if (!showContent) {
+    return <LoadingScreen onLoadComplete={() => setShowContent(true)} />;
+  }
+
   return (
-    <>
-      <LoadingScreen />
-      <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden animate-fade-in">
       {/* Figma-Style Subtle Blur Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         {/* Main blur - top center */}
@@ -39,7 +44,6 @@ const Index = () => {
       <Contact />
       <Footer />
     </div>
-    </>
   );
 };
 
