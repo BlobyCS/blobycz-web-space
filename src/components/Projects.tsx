@@ -1,7 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Projects = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const projects = [
     {
       title: "ZikyZone",
@@ -21,7 +25,12 @@ const Projects = () => {
     <section id="projects" className="py-32 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-6xl mx-auto relative">
         {/* Figma-Style Header */}
-        <div className="text-center mb-24 animate-fade-in space-y-4">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-24 space-y-4 transition-all duration-700 ${
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <div className="inline-block px-4 py-2 bg-muted/30 backdrop-blur-sm rounded-xl border border-border/30 mb-6">
             <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
               Portfolio
@@ -33,12 +42,14 @@ const Projects = () => {
         </div>
 
         {/* Projects Grid - Figma Cards */}
-        <div className="grid gap-8 md:grid-cols-2">
+        <div ref={gridRef} className="grid gap-8 md:grid-cols-2">
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="group relative animate-fade-in"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className={`group relative transition-all duration-1000 ${
+                gridVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
+              }`}
+              style={{ transitionDelay: gridVisible ? `${index * 200}ms` : "0ms" }}
             >
               <Card className="relative p-10 bg-card/40 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg h-full rounded-3xl group-hover:bg-card/60 overflow-hidden">
                 <div className="relative space-y-6">

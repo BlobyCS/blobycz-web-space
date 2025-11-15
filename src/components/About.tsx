@@ -1,9 +1,19 @@
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 const About = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section id="about" className="py-32 px-4 relative">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-text bg-clip-text text-transparent">
             O mně
           </h2>
@@ -11,7 +21,12 @@ const About = () => {
         </div>
 
         {/* Content Card */}
-        <div className="relative group animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <div 
+          ref={cardRef}
+          className={`relative group transition-all duration-1000 ${
+            cardVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+          }`}
+        >
           {/* Glow effect */}
           <div className="absolute -inset-0.5 bg-gradient-primary rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
           
