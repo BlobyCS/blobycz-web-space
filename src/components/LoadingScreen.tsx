@@ -2,27 +2,46 @@ import { useEffect, useState } from "react";
 
 const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    let currentProgress = 0;
-    
-    const interval = setInterval(() => {
-      currentProgress += Math.random() * 15;
-      
-      if (currentProgress >= 100) {
-        currentProgress = 100;
-        clearInterval(interval);
-        
-        setTimeout(() => {
-          onLoadComplete();
-        }, 500);
+    // Track real page load progress
+    const updateProgress = () => {
+      if (document.readyState === 'loading') {
+        setProgress(33);
+      } else if (document.readyState === 'interactive') {
+        setProgress(66);
+      } else if (document.readyState === 'complete') {
+        setProgress(100);
+        setIsLoaded(true);
       }
-      
-      setProgress(Math.min(currentProgress, 100));
-    }, 100);
+    };
 
-    return () => clearInterval(interval);
-  }, [onLoadComplete]);
+    // Initial check
+    updateProgress();
+
+    // Listen for readyState changes
+    document.addEventListener('readystatechange', updateProgress);
+    
+    // Fallback: ensure we complete after window load
+    window.addEventListener('load', () => {
+      setProgress(100);
+      setIsLoaded(true);
+    });
+
+    return () => {
+      document.removeEventListener('readystatechange', updateProgress);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded && progress === 100) {
+      const timer = setTimeout(() => {
+        onLoadComplete();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, progress, onLoadComplete]);
 
   return (
     <div className="fixed inset-0 z-[9999] bg-background flex items-center justify-center">
@@ -33,13 +52,13 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
         
         <div className="w-full bg-muted/20 rounded-full h-2 overflow-hidden mb-4">
           <div 
-            className="h-full bg-gradient-primary transition-all duration-300 ease-out"
+            className="h-full bg-gradient-primary transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
         
         <p className="text-center text-sm text-foreground/60">
-          {Math.floor(progress)}%
+          Loading...
         </p>
       </div>
     </div>
