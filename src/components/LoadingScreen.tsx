@@ -46,8 +46,8 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
   return (
     <div className="fixed inset-0 z-[9999] bg-background flex items-center justify-center">
       <div className="max-w-md w-full px-8">
-        <h1 className="text-3xl font-bold text-center mb-8 bg-gradient-text bg-clip-text text-transparent">
-          BlobyCZ Portfolio
+        <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-text bg-clip-text text-transparent tracking-tight">
+          Loading...
         </h1>
         
         <div className="w-full bg-muted/20 rounded-full h-2 overflow-hidden mb-4">

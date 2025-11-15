@@ -1,6 +1,10 @@
 import { Card } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Skills = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const skills = [
     {
       name: "JavaScript",
@@ -23,7 +27,12 @@ const Skills = () => {
     <section id="skills" className="py-32 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-6xl mx-auto">
         {/* Figma-Style Header */}
-        <div className="text-center mb-24 animate-fade-in space-y-4">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-24 space-y-4 transition-all duration-700 ${
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <div className="inline-block px-4 py-2 bg-muted/30 backdrop-blur-sm rounded-xl border border-border/30 mb-6">
             <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
               Technologie
@@ -35,12 +44,14 @@ const Skills = () => {
         </div>
 
         {/* Skills Grid - Figma Cards */}
-        <div className="grid gap-6 md:grid-cols-3">
+        <div ref={gridRef} className="grid gap-6 md:grid-cols-3">
           {skills.map((skill, index) => (
             <div
               key={skill.name}
-              className="group relative animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`group relative transition-all duration-700 ${
+                gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
+              style={{ transitionDelay: gridVisible ? `${index * 150}ms` : "0ms" }}
             >
               <Card className="relative p-8 bg-card/40 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg h-full rounded-3xl group-hover:bg-card/60">
                 <div className="relative flex flex-col items-center text-center space-y-6">

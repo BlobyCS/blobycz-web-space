@@ -1,8 +1,14 @@
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 const Hero = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="animate-fade-in space-y-12">
+      <div ref={ref} className="max-w-6xl mx-auto text-center">
+        <div className={`space-y-12 transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
           {/* Main Title - Figma Style */}
           <div className="relative inline-block">
             <div className="absolute -inset-8 bg-gradient-primary blur-[100px] opacity-20"></div>
