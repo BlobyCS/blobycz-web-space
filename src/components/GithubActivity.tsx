@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useEffect, useState, useRef } from "react";
 import { GitBranch, GitCommit, Star } from "lucide-react";
 
 interface GithubStats {
@@ -9,9 +8,37 @@ interface GithubStats {
 }
 
 const GithubActivity = () => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const [stats, setStats] = useState<GithubStats>({ repos: 0, stars: 0, commits: 0 });
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const currentRef = ref.current;
+    
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(currentRef);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px",
+      }
+    );
+
+    observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const fetchGithubStats = async () => {
@@ -82,43 +109,43 @@ const GithubActivity = () => {
         <div className={`transition-all duration-1000 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
-          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-text bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
             GitHub Aktivita
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 group">
+            <div className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800/50 rounded-3xl p-8 hover:border-violet-500/30 transition-all duration-300 group">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
-                  <GitBranch className="w-6 h-6 text-primary" />
+                <div className="p-3 bg-violet-500/10 rounded-2xl group-hover:bg-violet-500/20 transition-colors">
+                  <GitBranch className="w-6 h-6 text-violet-600 dark:text-violet-400" />
                 </div>
-                <h3 className="text-xl font-semibold">Repositories</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Repositories</h3>
               </div>
-              <p className="text-4xl font-bold bg-gradient-text bg-clip-text text-transparent">
+              <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.repos}
               </p>
             </div>
 
-            <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 group">
+            <div className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800/50 rounded-3xl p-8 hover:border-indigo-500/30 transition-all duration-300 group">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-accent/10 rounded-2xl group-hover:bg-accent/20 transition-colors">
-                  <Star className="w-6 h-6 text-accent" />
+                <div className="p-3 bg-indigo-500/10 rounded-2xl group-hover:bg-indigo-500/20 transition-colors">
+                  <Star className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h3 className="text-xl font-semibold">Gists</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Gists</h3>
               </div>
-              <p className="text-4xl font-bold bg-gradient-text bg-clip-text text-transparent">
+              <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.stars}
               </p>
             </div>
 
-            <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 group">
+            <div className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800/50 rounded-3xl p-8 hover:border-violet-500/30 transition-all duration-300 group">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
-                  <GitCommit className="w-6 h-6 text-primary" />
+                <div className="p-3 bg-violet-500/10 rounded-2xl group-hover:bg-violet-500/20 transition-colors">
+                  <GitCommit className="w-6 h-6 text-violet-600 dark:text-violet-400" />
                 </div>
-                <h3 className="text-xl font-semibold">Commits</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Commits</h3>
               </div>
-              <p className="text-4xl font-bold bg-gradient-text bg-clip-text text-transparent">
+              <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.commits}
               </p>
             </div>
@@ -129,7 +156,7 @@ const GithubActivity = () => {
               href="https://github.com/Bloby22"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-card/50 backdrop-blur-xl border border-border/50 rounded-2xl hover:border-primary/30 hover:bg-card/70 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/80 dark:bg-slate-900/50 backdrop-blur-xl border border-slate-200 dark:border-slate-800/50 rounded-2xl hover:border-violet-500/30 hover:bg-white dark:hover:bg-slate-900/70 transition-all duration-300 text-slate-900 dark:text-slate-100"
             >
               <span>Zobrazit profil</span>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -143,4 +170,5 @@ const GithubActivity = () => {
   );
 };
 
+export default GithubActivity;
 export default GithubActivity;
