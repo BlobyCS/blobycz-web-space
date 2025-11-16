@@ -171,4 +171,3 @@ const GithubActivity = () => {
 };
 
 export default GithubActivity;
-export default GithubActivity;
