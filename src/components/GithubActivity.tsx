@@ -141,7 +141,7 @@ const GithubActivity = () => {
                 <div className="p-3 bg-violet-500/10 rounded-2xl group-hover:bg-violet-500/20 transition-colors">
                   <GitBranch className="w-6 h-6 text-violet-600 dark:text-violet-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Repositories</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Repozitáře</h3>
               </div>
               <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.repos}
@@ -165,7 +165,7 @@ const GithubActivity = () => {
                 <div className="p-3 bg-violet-500/10 rounded-2xl group-hover:bg-violet-500/20 transition-colors">
                   <GitCommit className="w-6 h-6 text-violet-600 dark:text-violet-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Commits</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Commity</h3>
               </div>
               <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.commits}
