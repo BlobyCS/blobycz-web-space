@@ -43,6 +43,15 @@ const GithubActivity = () => {
   useEffect(() => {
     const fetchGithubStats = async () => {
       try {
+        const token = import.meta.env.VITE_GITHUB_TOKEN;
+        
+        if (!token) {
+          console.warn("GitHub token not found, using fallback data");
+          setStats({ repos: 15, stars: 8, commits: 250 });
+          setLoading(false);
+          return;
+        }
+
         const query = `
           {
             user(login: "Bloby22") {
@@ -58,10 +67,8 @@ const GithubActivity = () => {
                       }
                     }
                   }
+                  stargazerCount
                 }
-              }
-              gists(first: 100) {
-                totalCount
               }
             }
           }
@@ -71,30 +78,45 @@ const GithubActivity = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify({ query }),
         });
 
+        if (!response.ok) {
+          throw new Error(`GitHub API error: ${response.status}`);
+        }
+
         const data = await response.json();
 
-        const repos = data.data.user.repositories.totalCount;
-        const gists = data.data.user.gists.totalCount;
-        let commits = 0;
+        if (data.errors) {
+          console.error("GraphQL errors:", data.errors);
+          setStats({ repos: 15, stars: 8, commits: 250 });
+          setLoading(false);
+          return;
+        }
 
-        data.data.user.repositories.nodes.forEach((repo: any) => {
+        const repos = data.data?.user?.repositories?.totalCount || 0;
+        let commits = 0;
+        let totalStars = 0;
+
+        data.data?.user?.repositories?.nodes?.forEach((repo: any) => {
           if (repo.defaultBranchRef?.target?.history?.totalCount) {
             commits += repo.defaultBranchRef.target.history.totalCount;
+          }
+          if (repo.stargazerCount) {
+            totalStars += repo.stargazerCount;
           }
         });
 
         setStats({
           repos,
-          stars: gists,
+          stars: totalStars,
           commits,
         });
       } catch (error) {
         console.error("Failed to fetch GitHub stats:", error);
+        setStats({ repos: 15, stars: 8, commits: 250 });
       } finally {
         setLoading(false);
       }
@@ -131,7 +153,7 @@ const GithubActivity = () => {
                 <div className="p-3 bg-indigo-500/10 rounded-2xl group-hover:bg-indigo-500/20 transition-colors">
                   <Star className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Gists</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Stars</h3>
               </div>
               <p className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {loading ? "..." : stats.stars}
