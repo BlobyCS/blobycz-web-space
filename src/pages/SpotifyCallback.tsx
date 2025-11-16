@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Backend URL configuration - change this to your ngrok/server URL
+const BACKEND_URL = "https://your-ngrok-url.ngrok.io";
+
 const SpotifyCallback = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
@@ -28,9 +31,10 @@ const SpotifyCallback = () => {
 
     const sendCodeToBackend = async () => {
       try {
-        console.log("Sending code to backend:", code);
+        console.log("Sending code to:", BACKEND_URL);
+        console.log("Authorization code:", code);
 
-        const response = await fetch("http://localhost:3000/api/auth/callback", {
+        const response = await fetch(`${BACKEND_URL}/api/auth/callback`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -38,15 +42,18 @@ const SpotifyCallback = () => {
           body: JSON.stringify({ code }),
         });
 
+        console.log("Response status:", response.status);
+
         if (!response.ok) {
-          throw new Error(`Backend error: ${response.status}`);
+          throw new Error(`Backend responded with ${response.status}`);
         }
 
         const data = await response.json();
+        console.log("Response data:", data);
 
         if (data.success) {
           setStatus("success");
-          console.log("Authorization successful!");
+          console.log("Authorization successful! Redirecting to tracker...");
           
           setTimeout(() => {
             window.location.href = 'http://localhost:3000';
@@ -86,8 +93,7 @@ const SpotifyCallback = () => {
                 </svg>
               </div>
               <h1 className="text-2xl font-bold mb-2">Tracker běží!</h1>
-              <p className="text-muted-foreground mb-2">Spotify tracking je aktivní</p>
-              <p className="text-xs text-muted-foreground">Přesměrování na tracker...</p>
+              <p className="text-muted-foreground mb-2">Přesměrování...</p>
             </>
           )}
           

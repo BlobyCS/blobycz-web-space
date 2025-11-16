@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Github, Instagram } from "lucide-react";
 import { SiDiscord } from "react-icons/si";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,6 +95,11 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Theme Toggle - Desktop */}
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -167,6 +173,11 @@ const Navbar = () => {
               >
                 <Instagram size={20} />
               </a>
+            </div>
+
+            {/* Theme Toggle - Mobile */}
+            <div className="pt-4 flex justify-center">
+              <ThemeToggle />
             </div>
           </div>
         </div>

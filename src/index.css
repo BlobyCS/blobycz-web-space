@@ -8,6 +8,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 263 70% 65%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 263 80% 75%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 14% 14%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 280 65% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 263 70% 65%;
+
+    --radius: 1.25rem;
+
+    /* Gradients - Light mode */
+    --gradient-primary: linear-gradient(135deg, hsl(263, 70%, 65%), hsl(280, 65%, 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(280, 65%, 60%), hsl(263, 70%, 65%));
+    --gradient-bg: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(220, 14%, 96%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.6), hsl(220 14% 96% / 0.4));
+    --gradient-border: linear-gradient(135deg, hsl(263 70% 65% / 0.5), hsl(280 65% 60% / 0.5));
+    --gradient-text: linear-gradient(135deg, hsl(263, 70%, 70%), hsl(280, 65%, 65%), hsl(200, 70%, 60%));
+    
+    /* Glass Effects - Light mode */
+    --glass-bg: hsl(0 0% 100% / 0.4);
+    --glass-border: hsl(224 71% 4% / 0.1);
+    --glass-hover: hsl(220 14% 96% / 0.6);
+    
+    /* Shadows - Light mode */
+    --shadow-sm: 0 2px 8px hsl(224 71% 4% / 0.1);
+    --shadow-md: 0 4px 16px hsl(224 71% 4% / 0.1), 0 0 40px hsl(263 70% 65% / 0.05);
+    --shadow-lg: 0 8px 32px hsl(224 71% 4% / 0.15), 0 0 60px hsl(263 70% 65% / 0.1);
+    --shadow-glow: 0 0 40px hsl(263 70% 65% / 0.2), 0 8px 32px hsl(263 70% 65% / 0.1);
+    --shadow-glow-hover: 0 0 60px hsl(263 70% 65% / 0.3), 0 12px 48px hsl(263 70% 65% / 0.15);
+  }
+
+  .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
 
@@ -39,7 +92,7 @@ All colors MUST be HSL.
 
     --radius: 1.25rem;
 
-    /* Gradients - Beautiful combinations */
+    /* Gradients - Dark mode */
     --gradient-primary: linear-gradient(135deg, hsl(263, 70%, 65%), hsl(280, 65%, 60%));
     --gradient-secondary: linear-gradient(135deg, hsl(280, 65%, 60%), hsl(263, 70%, 65%));
     --gradient-bg: linear-gradient(180deg, hsl(224, 71%, 4%), hsl(224, 71%, 6%));
@@ -47,12 +100,12 @@ All colors MUST be HSL.
     --gradient-border: linear-gradient(135deg, hsl(263 70% 65% / 0.5), hsl(280 65% 60% / 0.5));
     --gradient-text: linear-gradient(135deg, hsl(263, 70%, 70%), hsl(280, 65%, 65%), hsl(200, 70%, 60%));
     
-    /* Glass Effects */
+    /* Glass Effects - Dark mode */
     --glass-bg: hsl(224 71% 6% / 0.4);
     --glass-border: hsl(213 31% 91% / 0.1);
     --glass-hover: hsl(224 71% 8% / 0.6);
     
-    /* Shadows - Vibrant */
+    /* Shadows - Dark mode */
     --shadow-sm: 0 2px 8px hsl(224 71% 4% / 0.5);
     --shadow-md: 0 4px 16px hsl(224 71% 4% / 0.6), 0 0 40px hsl(263 70% 65% / 0.1);
     --shadow-lg: 0 8px 32px hsl(224 71% 4% / 0.7), 0 0 60px hsl(263 70% 65% / 0.15);
