@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import TypingEffect from "./TypingEffect";
 
 const Hero = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -17,18 +18,22 @@ const Hero = () => {
             </h1>
           </div>
           
-          {/* Subtitle - Clean & Minimal */}
+          {/* Subtitle - Clean & Minimal with Typing Effect */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl">
               <div className="w-2 h-2 rounded-full bg-gradient-primary animate-pulse"></div>
-              <p className="text-xl sm:text-2xl text-foreground/90 font-semibold tracking-tight">
-                Discord Bot Developer
-              </p>
-            </div>
-            
-            <div className="inline-block px-4 py-2 bg-muted/30 backdrop-blur-sm rounded-xl border border-border/30">
-              <p className="text-base text-muted-foreground font-medium">
-                + Java Developer
+              <p className="text-xl sm:text-2xl font-semibold tracking-tight">
+                <TypingEffect 
+                  texts={[
+                    "Discord Bot Developer",
+                    "Java Developer",
+                    "TypeScript Enthusiast",
+                    "Minecraft Plugin Developer"
+                  ]}
+                  typingSpeed={100}
+                  deletingSpeed={50}
+                  delayBetweenTexts={2000}
+                />
               </p>
             </div>
           </div>
