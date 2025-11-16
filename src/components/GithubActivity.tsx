@@ -16,13 +16,55 @@ const GithubActivity = () => {
   useEffect(() => {
     const fetchGithubStats = async () => {
       try {
-        const response = await fetch("https://api.github.com/users/Bloby22");
+        const query = `
+          {
+            user(login: "Bloby22") {
+              repositories(first: 100, ownerAffiliations: OWNER) {
+                totalCount
+                nodes {
+                  defaultBranchRef {
+                    target {
+                      ... on Commit {
+                        history {
+                          totalCount
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              gists(first: 100) {
+                totalCount
+              }
+            }
+          }
+        `;
+
+        const response = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+          },
+          body: JSON.stringify({ query }),
+        });
+
         const data = await response.json();
-        
+
+        const repos = data.data.user.repositories.totalCount;
+        const gists = data.data.user.gists.totalCount;
+        let commits = 0;
+
+        data.data.user.repositories.nodes.forEach((repo: any) => {
+          if (repo.defaultBranchRef?.target?.history?.totalCount) {
+            commits += repo.defaultBranchRef.target.history.totalCount;
+          }
+        });
+
         setStats({
-          repos: data.public_repos || 0,
-          stars: data.public_gists || 0,
-          commits: Math.floor(Math.random() * 500) + 100, // GitHub API doesn't provide total commits easily
+          repos,
+          stars: gists,
+          commits,
         });
       } catch (error) {
         console.error("Failed to fetch GitHub stats:", error);
@@ -74,10 +116,10 @@ const GithubActivity = () => {
                 <div className="p-3 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors">
                   <GitCommit className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Commits (est.)</h3>
+                <h3 className="text-xl font-semibold">Commits</h3>
               </div>
               <p className="text-4xl font-bold bg-gradient-text bg-clip-text text-transparent">
-                {loading ? "..." : `${stats.commits}+`}
+                {loading ? "..." : stats.commits}
               </p>
             </div>
           </div>
