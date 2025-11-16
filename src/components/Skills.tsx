@@ -70,12 +70,17 @@ const Skills = () => {
                     {skill.name}
                   </h3>
                   
-                  {/* Progress Bar - Minimal */}
+                  {/* Progress Bar - Animated on scroll */}
                   <div className="w-full space-y-3">
                     <div className="relative h-2 bg-muted/50 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-primary rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
+                        className={`h-full bg-gradient-primary rounded-full transition-all duration-1000 ease-out ${
+                          gridVisible ? "w-full" : "w-0"
+                        }`}
+                        style={{ 
+                          width: gridVisible ? `${skill.level}%` : "0%",
+                          transitionDelay: `${index * 150 + 300}ms`
+                        }}
                       />
                     </div>
                     <div className="flex justify-between items-center">

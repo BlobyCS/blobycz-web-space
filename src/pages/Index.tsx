@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import GithubActivity from "@/components/GithubActivity";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import ParticleBackground from "@/components/ParticleBackground";
+import Experience from "@/components/Experience";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -20,11 +22,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden animate-fade-in">
       <AnimatedBackground />
+      <ParticleBackground />
 
       <Navbar />
       <Hero />
       <About />
       <Skills />
+      <Experience />
       <GithubActivity />
       <Projects />
       <Contact />
