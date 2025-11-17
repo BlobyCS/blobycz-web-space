@@ -2,7 +2,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote } from "lucide-react";
 
-const Testimonials = () => {
+const Testimonial = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   const testimonials = [
