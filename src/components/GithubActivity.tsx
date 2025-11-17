@@ -97,6 +97,7 @@ const GithubActivity = () => {
         }
 
         const repos = data.data?.user?.repositories?.totalCount || 0;
+        const gists = data.data?.user?.gists?.totalCount || 0;
         let commits = 0;
         let totalStars = 0;
 
@@ -111,7 +112,7 @@ const GithubActivity = () => {
 
         setStats({
           repos,
-          stars: totalStars,
+          stars: totalStars || gists,
           commits,
         });
       } catch (error) {
