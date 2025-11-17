@@ -14,6 +14,8 @@ import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import Stats from "@/components/Stats";
+import Education from "@/components/Education";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -32,8 +34,10 @@ const Index = () => {
       <Navbar />
       <Hero />
       <About />
+      <Stats />
       <Skills />
       <Experience />
+      <Education />
       <GithubActivity />
       <Projects />
       <Testimonials />
