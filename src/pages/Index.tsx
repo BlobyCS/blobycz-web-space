@@ -11,6 +11,9 @@ import GithubActivity from "@/components/GithubActivity";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ParticleBackground from "@/components/ParticleBackground";
 import Experience from "@/components/Experience";
+import Testimonials from "@/components/Testimonials";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -21,6 +24,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden animate-fade-in">
+      <CustomCursor />
+      <ScrollProgressBar />
       <AnimatedBackground />
       <ParticleBackground />
 
@@ -31,6 +36,7 @@ const Index = () => {
       <Experience />
       <GithubActivity />
       <Projects />
+      <Testimonials />
       <Contact />
       <Footer />
     </div>
