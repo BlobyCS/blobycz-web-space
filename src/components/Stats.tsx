@@ -8,28 +8,22 @@ const Stats = () => {
   const stats = [
     {
       icon: Code2,
-      value: 50,
+      value: 10,
       label: "Dokončených projektů",
       suffix: "+",
     },
     {
       icon: Users,
-      value: 30,
+      value: 5,
       label: "Spokojených klientů",
       suffix: "+",
     },
     {
       icon: Clock,
-      value: 5000,
+      value: 500,
       label: "Hodin zkušeností",
       suffix: "+",
-    },
-    {
-      icon: Award,
-      value: 15,
-      label: "Certifikací",
-      suffix: "",
-    },
+    }
   ];
 
   return (
