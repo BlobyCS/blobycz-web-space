@@ -13,7 +13,7 @@ import ParticleBackground from "@/components/ParticleBackground";
 import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import CustomCursor from "@/components/CustomCursor";
-import ScrollProgressBar from "@/components/ScrollProgressBar";,
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
