@@ -14,16 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      assets: {
+        Row: {
+          city: string | null
+          country: string | null
+          download_date: string | null
+          email: string
+          file_id: string | null
+          id: string
+          ip_address: string | null
+          latitude: number | null
+          longitude: number | null
+          user_agent: string | null
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          download_date?: string | null
+          email: string
+          file_id?: string | null
+          id?: string
+          ip_address?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          user_agent?: string | null
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          download_date?: string | null
+          email?: string
+          file_id?: string | null
+          id?: string
+          ip_address?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assets_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "download_files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assets_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "download_stats"
+            referencedColumns: ["file_id"]
+          },
+        ]
+      }
+      download_files: {
+        Row: {
+          description: string | null
+          file_path: string
+          file_size: number | null
+          filename: string
+          id: string
+          is_active: boolean | null
+          upload_date: string | null
+        }
+        Insert: {
+          description?: string | null
+          file_path: string
+          file_size?: number | null
+          filename: string
+          id?: string
+          is_active?: boolean | null
+          upload_date?: string | null
+        }
+        Update: {
+          description?: string | null
+          file_path?: string
+          file_size?: number | null
+          filename?: string
+          id?: string
+          is_active?: boolean | null
+          upload_date?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      download_stats: {
+        Row: {
+          countries_count: number | null
+          file_id: string | null
+          filename: string | null
+          last_download: string | null
+          total_downloads: number | null
+          unique_downloads: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      get_download_stats: {
+        Args: never
+        Returns: {
+          countries_count: number
+          file_id: string
+          filename: string
+          last_download: string
+          total_downloads: number
+          unique_downloads: number
+        }[]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +296,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
