@@ -10,30 +10,37 @@ interface DownloadTrackingRequest {
   email: string;
 }
 
-Deno.serve(async (req) => {
+export default async function handler(req, res) {
+  // CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v))
+    return res.status(200).end()
   }
 
+  Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v))
+
   try {
+    // ---- VERCEL ENV místo DENO ----
     const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      process.env.SUPABASE_URL ?? '',
+      process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
     );
 
-    const { fileId, email }: DownloadTrackingRequest = await req.json();
+    const { fileId, email }: DownloadTrackingRequest = req.body;
 
     console.log('Tracking download:', { fileId, email });
 
-    // Get IP address
-    const ip = req.headers.get('x-forwarded-for') || 
-               req.headers.get('x-real-ip') || 
-               'unknown';
+    // IP
+    const ip =
+      req.headers['x-forwarded-for'] ||
+      req.headers['x-real-ip'] ||
+      req.socket?.remoteAddress ||
+      'unknown';
 
-    // Get user agent
-    const userAgent = req.headers.get('user-agent') || 'unknown';
+    // User agent
+    const userAgent = req.headers['user-agent'] || 'unknown';
 
-    // Get geolocation from IP (using ipapi.co)
+    // Geolokace (ipapi)
     let geoData = null;
     try {
       const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
@@ -45,7 +52,7 @@ Deno.serve(async (req) => {
       console.error('Error fetching geo data:', error);
     }
 
-    // Insert download record
+    // ---- VLOŽENÍ DO SUPABASE ----
     const { data, error } = await supabase
       .from('assets')
       .insert({
@@ -68,22 +75,13 @@ Deno.serve(async (req) => {
 
     console.log('Download tracked successfully:', data);
 
-    return new Response(
-      JSON.stringify({ success: true, data }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200 
-      }
-    );
+    return res.status(200).json({
+      success: true,
+      data,
+    });
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return new Response(
-      JSON.stringify({ error: errorMessage }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 400 
-      }
-    );
+    return res.status(400).json({ error: errorMessage });
   }
-});
+}
