@@ -26,6 +26,18 @@ export default async function handler(req, res) {
       process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
     );
 
+    const { data: testData, error: testError } = await supabase
+      .from('assets')
+      .select('id')
+      .limit(1);
+
+    if (testError) {
+      console.error('Supabase connection ERROR:', testError);
+      return res.status(500).json({ error: 'Cannot connect to Supabase' });
+    } else {
+      console.log('Supabase connection OK:', testData);
+    }
+
     const { fileId, email }: DownloadTrackingRequest = req.body;
 
     console.log('Tracking download:', { fileId, email });
