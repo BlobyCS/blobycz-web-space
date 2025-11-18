@@ -127,4 +127,34 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+  
+  .glass-effect {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glass-input {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+  }
+  
+  .gradient-button {
+    background: var(--gradient-primary);
+    transition: var(--transition-base);
+  }
+  
+  .gradient-button:hover {
+    box-shadow: var(--shadow-glow-hover);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
