@@ -1,1 +1,7 @@
 project_id = "vxqhpwypztwgcdohegtd"
+
+[functions.track-download]
+verify_jwt = false
+
+[functions.spotify]
+verify_jwt = false
