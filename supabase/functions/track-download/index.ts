@@ -1,70 +1,50 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+};
 
 interface DownloadTrackingRequest {
   fileId: string;
   email: string;
 }
 
-export default async function handler(req, res) {
-  // CORS preflight
+serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v))
-    return res.status(200).end()
+    return new Response(null, { headers: corsHeaders });
   }
 
-  Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v))
-
   try {
-    // ---- VERCEL ENV místo DENO ----
     const supabase = createClient(
-      process.env.SUPABASE_URL ?? '',
-      process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { data: testData, error: testError } = await supabase
-      .from('assets')
-      .select('id')
-      .limit(1);
-
-    if (testError) {
-      console.error('Supabase connection ERROR:', testError);
-      return res.status(500).json({ error: 'Cannot connect to Supabase' });
-    } else {
-      console.log('Supabase connection OK:', testData);
-    }
-
-    const { fileId, email }: DownloadTrackingRequest = req.body;
+    const { fileId, email }: DownloadTrackingRequest = await req.json();
 
     console.log('Tracking download:', { fileId, email });
 
-    // IP
-    const ip =
-      req.headers['x-forwarded-for'] ||
-      req.headers['x-real-ip'] ||
-      req.socket?.remoteAddress ||
-      'unknown';
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 
+               req.headers.get('x-real-ip') || 
+               'unknown';
+    const userAgent = req.headers.get('user-agent') || 'unknown';
 
-    // User agent
-    const userAgent = req.headers['user-agent'] || 'unknown';
-
-    // Geolokace (ipapi)
-    let geoData = null;
-    try {
-      const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
-      if (geoResponse.ok) {
-        geoData = await geoResponse.json();
-        console.log('Geo data:', geoData);
+    let geoData: { country_name?: string; city?: string; latitude?: number; longitude?: number } = {};
+    
+    if (ip !== 'unknown' && ip !== '127.0.0.1') {
+      try {
+        const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+        if (geoResponse.ok) {
+          geoData = await geoResponse.json();
+          console.log('Geo data:', geoData);
+        }
+      } catch (error) {
+        console.error('Error fetching geo data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching geo data:', error);
     }
 
-    // ---- VLOŽENÍ DO SUPABASE ----
     const { data, error } = await supabase
       .from('assets')
       .insert({
@@ -82,18 +62,25 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Database error:', error);
-      throw error;
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     console.log('Download tracked successfully:', data);
 
-    return res.status(200).json({
-      success: true,
-      data,
+    return new Response(JSON.stringify({ success: true, data }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
+
   } catch (error) {
     console.error('Error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return res.status(400).json({ error: errorMessage });
+    return new Response(JSON.stringify({ 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    }), {
+      status: 400,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   }
-}
+});

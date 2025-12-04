@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Backend URL configuration - change this to your ngrok/server URL
-const BACKEND_URL = "https://your-ngrok-url.ngrok.io";
+const REDIRECT_URI = "https://bloby.eu/spotify/callback";
 
 const SpotifyCallback = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [refreshToken, setRefreshToken] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
@@ -18,70 +18,63 @@ const SpotifyCallback = () => {
       setStatus("error");
       setErrorMessage(`Spotify error: ${error}`);
       console.error("Spotify authorization error:", error);
-      setTimeout(() => navigate("/"), 3000);
       return;
     }
 
     if (!code) {
       setStatus("error");
       setErrorMessage("Missing authorization code");
-      setTimeout(() => navigate("/"), 3000);
       return;
     }
 
-    const sendCodeToBackend = async () => {
+    const exchangeCode = async () => {
       try {
-        console.log("Sending code to:", BACKEND_URL);
-        console.log("Authorization code:", code);
+        console.log("Exchanging code for tokens...");
 
-        const response = await fetch(`${BACKEND_URL}/api/auth/callback`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ code }),
-        });
-
-        console.log("Response status:", response.status);
-
-        if (!response.ok) {
-          throw new Error(`Backend responded with ${response.status}`);
-        }
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/spotify?action=callback`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            },
+            body: JSON.stringify({ 
+              code, 
+              redirectUri: REDIRECT_URI 
+            }),
+          }
+        );
 
         const data = await response.json();
-        console.log("Response data:", data);
+        console.log("Response:", data);
 
-        if (data.success) {
+        if (data.success && data.refreshToken) {
           setStatus("success");
-          console.log("Authorization successful! Redirecting to tracker...");
-          
-          setTimeout(() => {
-            window.location.href = 'http://localhost:3000';
-          }, 2000);
+          setRefreshToken(data.refreshToken);
         } else {
-          throw new Error(data.error || "Unknown error");
+          throw new Error(data.error || "Failed to exchange code");
         }
 
       } catch (err) {
         console.error("Callback error:", err);
         setStatus("error");
         setErrorMessage(err instanceof Error ? err.message : "Connection failed");
-        setTimeout(() => navigate("/"), 3000);
       }
     };
 
-    sendCodeToBackend();
+    exchangeCode();
   }, [navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-bg flex items-center justify-center px-4">
-      <div className="max-w-md w-full text-center">
+      <div className="max-w-lg w-full text-center">
         <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-8">
           {status === "loading" && (
             <>
               <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
               <h1 className="text-2xl font-bold mb-2">Zpracovávám...</h1>
-              <p className="text-muted-foreground">Připojuji se ke Spotify trackeru</p>
+              <p className="text-muted-foreground">Připojuji se ke Spotify</p>
             </>
           )}
           
@@ -92,8 +85,22 @@ const SpotifyCallback = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold mb-2">Tracker běží!</h1>
-              <p className="text-muted-foreground mb-2">Přesměrování...</p>
+              <h1 className="text-2xl font-bold mb-2">Úspěch!</h1>
+              <p className="text-muted-foreground mb-4">Zkopíruj tento refresh token a ulož ho jako secret:</p>
+              <div className="bg-muted/30 rounded-xl p-4 mb-4">
+                <code className="text-xs text-green-400 break-all select-all">
+                  {refreshToken}
+                </code>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Ulož jako <code className="text-primary">SPOTIFY_REFRESH_TOKEN</code>
+              </p>
+              <button
+                onClick={() => navigate("/")}
+                className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition"
+              >
+                Zpět na hlavní stránku
+              </button>
             </>
           )}
           
@@ -106,6 +113,12 @@ const SpotifyCallback = () => {
               </div>
               <h1 className="text-2xl font-bold mb-2">Chyba</h1>
               <p className="text-muted-foreground">{errorMessage || "Nepodařilo se připojit"}</p>
+              <button
+                onClick={() => navigate("/")}
+                className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition"
+              >
+                Zpět
+              </button>
             </>
           )}
         </div>

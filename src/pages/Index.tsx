@@ -14,6 +14,7 @@ import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -30,6 +31,7 @@ const Index = () => {
       <ParticleBackground />
 
       <Navbar />
+      <SpotifyNowPlaying />
       <Hero />
       <About />
       <Skills />
