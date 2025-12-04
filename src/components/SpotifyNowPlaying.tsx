@@ -20,12 +20,6 @@ const SpotifyNowPlaying = () => {
 
   const fetchNowPlaying = async () => {
     try {
-      const { data: response, error } = await supabase.functions.invoke('spotify', {
-        body: {},
-        headers: {},
-      });
-
-      // Use query param approach
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/spotify?action=now-playing`,
         {
