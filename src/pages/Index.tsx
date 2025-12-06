@@ -17,7 +17,6 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
 import Snowfall from "@/components/Snowfall";
 import WinterBackground from "@/components/WinterBackground";
-import SnowLayer from "@/components/SnowLayer";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -36,7 +35,6 @@ const Index = () => {
       <Snowfall />
 
       <Navbar />
-      <SnowLayer />
       <SpotifyNowPlaying />
       <Hero />
       <About />
