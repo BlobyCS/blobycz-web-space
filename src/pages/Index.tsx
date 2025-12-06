@@ -15,6 +15,7 @@ import Testimonials from "@/components/Testimonials";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
+import Snowfall from "@/components/Snowfall";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -29,6 +30,7 @@ const Index = () => {
       <ScrollProgressBar />
       <AnimatedBackground />
       <ParticleBackground />
+      <Snowfall />
 
       <Navbar />
       <SpotifyNowPlaying />
