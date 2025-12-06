@@ -15,8 +15,6 @@ import Testimonials from "@/components/Testimonials";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
-import Snowfall from "@/components/Snowfall";
-import WinterBackground from "@/components/WinterBackground";
 
 const Index = () => {
   const [showContent, setShowContent] = useState(false);
@@ -29,10 +27,8 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden animate-fade-in">
       <CustomCursor />
       <ScrollProgressBar />
-      <WinterBackground />
       <AnimatedBackground />
       <ParticleBackground />
-      <Snowfall />
 
       <Navbar />
       <SpotifyNowPlaying />
