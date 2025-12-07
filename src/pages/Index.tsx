@@ -8,11 +8,8 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import GithubActivity from "@/components/GithubActivity";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import ParticleBackground from "@/components/ParticleBackground";
 import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
-import CustomCursor from "@/components/CustomCursor";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
 
@@ -24,12 +21,8 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-bg relative overflow-x-hidden animate-fade-in">
-      <CustomCursor />
+    <div className="min-h-screen bg-background relative noise">
       <ScrollProgressBar />
-      <AnimatedBackground />
-      <ParticleBackground />
-
       <Navbar />
       <SpotifyNowPlaying />
       <Hero />

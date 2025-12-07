@@ -1,56 +1,68 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
-  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section id="about" className="py-32 px-4 relative">
-      <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
-        <div 
-          ref={headerRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-text bg-clip-text text-transparent">
-            O mně
-          </h2>
-          <div className="h-1 w-20 bg-gradient-primary mx-auto rounded-full"></div>
-        </div>
+    <section id="about" className="py-32 px-6 lg:px-12 relative">
+      <div className="max-w-7xl mx-auto">
+        <div ref={ref} className={`grid lg:grid-cols-2 gap-16 items-start transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          {/* Left Column - Title */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <span className="text-sm font-mono uppercase tracking-[0.3em] text-primary">
+                [01] O mně
+              </span>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9]">
+                KDO<br />
+                <span className="neon-text">JSEM</span>
+              </h2>
+            </div>
 
-        {/* Content Card */}
-        <div 
-          ref={cardRef}
-          className={`relative group transition-all duration-1000 ${
-            cardVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-          }`}
-        >
-          {/* Glow effect */}
-          <div className="absolute -inset-0.5 bg-gradient-primary rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-          
-          {/* Main card */}
-          <div className="relative bg-glass-bg backdrop-blur-xl border border-glass-border rounded-2xl p-8 md:p-12 shadow-lg">
+            {/* Quick Facts */}
+            <div className="space-y-4 pt-8 border-t-2 border-border">
+              <div className="flex justify-between items-center py-2 border-b border-border">
+                <span className="text-muted-foreground uppercase text-sm tracking-wider">Lokace</span>
+                <span className="font-bold">Brno, CZ</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-border">
+                <span className="text-muted-foreground uppercase text-sm tracking-wider">Focus</span>
+                <span className="font-bold">Backend / Bots</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-border">
+                <span className="text-muted-foreground uppercase text-sm tracking-wider">Od roku</span>
+                <span className="font-bold">2023</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Content */}
+          <div className="brutal-card">
             <div className="space-y-6">
-              {/* Greeting */}
-              <p className="text-xl md:text-2xl font-semibold text-foreground">
-                Ahoj, jsem <span className="bg-gradient-text bg-clip-text text-transparent">Bloby</span>.
+              <p className="text-2xl font-bold leading-tight">
+                Ahoj, jsem <span className="neon-text">Bloby</span>.
               </p>
               
-              {/* Main content */}
-              <p className="text-lg text-foreground/80 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed font-sans">
                 Pocházím z Brna a mám rád technologie, hudbu a dělání smysluplných projektů. 
-                Kóďím převážně v Javě a JavaScriptu, tvořím Minecraft pluginy, Discord boty a NPM balíčky. 
-                Baví mě zkoušet nové věci a experimentovat s různými nápady.
+                Kóďím převážně v Javě a JavaScriptu, tvořím Minecraft pluginy, Discord boty a NPM balíčky.
               </p>
 
-              {/* Decorative elements */}
-              <div className="flex items-center gap-3 pt-4">
-                <div className="h-1 flex-1 bg-gradient-primary rounded-full opacity-30"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/50"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/30"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/10"></div>
+              <p className="text-muted-foreground leading-relaxed font-sans">
+                Baví mě zkoušet nové věci a experimentovat s různými nápady. Věřím v čistý kód, 
+                dobře dokumentované projekty a spolehlivé řešení.
+              </p>
+
+              <div className="pt-6 border-t-2 border-border">
+                <div className="flex flex-wrap gap-2">
+                  {["Java", "JavaScript", "TypeScript", "Node.js", "Discord.js"].map((tech) => (
+                    <span key={tech} className="px-3 py-1 border-2 border-foreground text-sm font-bold uppercase">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

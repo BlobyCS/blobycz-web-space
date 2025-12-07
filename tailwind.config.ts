@@ -13,12 +13,17 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Space Grotesk', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        neon: "hsl(var(--neon))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -48,27 +53,10 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-secondary': 'var(--gradient-secondary)',
-        'gradient-bg': 'var(--gradient-bg)',
-        'gradient-card': 'var(--gradient-card)',
-        'gradient-border': 'var(--gradient-border)',
-        'gradient-text': 'var(--gradient-text)',
-      },
-      boxShadow: {
-        'glow': 'var(--shadow-glow)',
-        'glow-strong': 'var(--shadow-glow-strong)',
-        'card': 'var(--shadow-card)',
-        'subtle': 'var(--shadow-subtle)',
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      backdropBlur: {
-        glass: '20px',
       },
       keyframes: {
         "accordion-down": {
@@ -83,47 +71,40 @@ export default {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" }
         },
-        "fade-in-left": {
-          "0%": { opacity: "0", transform: "translateX(-20px)" },
+        "slide-in": {
+          "0%": { opacity: "0", transform: "translateX(-30px)" },
           "100%": { opacity: "1", transform: "translateX(0)" }
         },
-        "float": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" }
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" }
         },
-        "glow": {
-          "0%, 100%": { boxShadow: "0 0 30px hsl(217 91% 60% / 0.4), 0 0 60px hsl(200 100% 50% / 0.2)" },
-          "50%": { boxShadow: "0 0 60px hsl(217 91% 60% / 0.6), 0 0 100px hsl(200 100% 50% / 0.3)" }
-        },
-        "gradient-shift": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" }
-        },
-        "border-glow": {
+        "pulse-neon": {
           "0%, 100%": { 
-            borderColor: "hsl(217 91% 60% / 0.3)",
-            boxShadow: "0 0 20px hsl(217 91% 60% / 0.2)"
+            boxShadow: "0 0 20px hsl(var(--primary) / 0.5), inset 0 0 20px hsl(var(--primary) / 0.1)" 
           },
           "50%": { 
-            borderColor: "hsl(200 100% 50% / 0.5)",
-            boxShadow: "0 0 40px hsl(200 100% 50% / 0.3)"
+            boxShadow: "0 0 40px hsl(var(--primary) / 0.8), inset 0 0 30px hsl(var(--primary) / 0.2)" 
           }
         },
-        "shimmer": {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" }
+        "typing": {
+          "0%": { width: "0" },
+          "100%": { width: "100%" }
         },
+        "flicker": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" },
+          "25%, 75%": { opacity: "0.9" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out",
-        "fade-in-left": "fade-in-left 0.6s ease-out",
-        "float": "float 3s ease-in-out infinite",
-        "glow": "glow 2s ease-in-out infinite",
-        "gradient-shift": "gradient-shift 3s ease-in-out infinite",
-        "border-glow": "border-glow 2s ease-in-out infinite",
-        "shimmer": "shimmer 2s ease-in-out infinite",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "slide-in": "slide-in 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.3s ease-out forwards",
+        "pulse-neon": "pulse-neon 2s ease-in-out infinite",
+        "flicker": "flicker 3s ease-in-out infinite",
       },
     },
   },
