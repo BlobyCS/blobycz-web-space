@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Music } from "lucide-react";
+import { Music, ExternalLink } from "lucide-react";
 
 interface NowPlayingData {
   isPlaying: boolean;
@@ -15,7 +15,7 @@ interface NowPlayingData {
 
 const SpotifyNowPlaying = () => {
   const [data, setData] = useState<NowPlayingData | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [currentProgress, setCurrentProgress] = useState(0);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastFetchTimeRef = useRef<number>(Date.now());
@@ -47,7 +47,6 @@ const SpotifyNowPlaying = () => {
     }
   };
 
-  // Real-time progress update
   useEffect(() => {
     if (data?.isPlaying && data.duration) {
       progressIntervalRef.current = setInterval(() => {
@@ -79,19 +78,22 @@ const SpotifyNowPlaying = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const progressPercent = data?.duration 
+    ? (currentProgress / data.duration) * 100 
+    : 0;
+
+  // Idle state - no data or not playing
   if (!data || (!data.isPlaying && !data.error)) {
     return (
       <div 
-        className="fixed bottom-6 right-6 z-40 rounded-2xl p-3 cursor-pointer transition-all duration-300 hover:scale-105"
-        style={{
-          background: 'linear-gradient(135deg, rgba(30, 30, 40, 0.8) 0%, rgba(20, 20, 30, 0.6) 100%)',
-          backdropFilter: 'blur(24px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(200%)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-        }}
+        className="fixed bottom-6 right-6 z-50 group cursor-pointer"
         title="Nepřehrává se"
       >
-        <Music className="w-5 h-5 text-muted-foreground" />
+        <div className="relative p-4 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/30 transition-all duration-300 group-hover:border-[#1DB954]/40 group-hover:shadow-[0_0_30px_-10px_#1DB954]">
+          <svg className="w-5 h-5 text-muted-foreground group-hover:text-[#1DB954] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+        </div>
       </div>
     );
   }
@@ -100,116 +102,133 @@ const SpotifyNowPlaying = () => {
     return null;
   }
 
-  const progressPercent = data.duration 
-    ? (currentProgress / data.duration) * 100 
-    : 0;
-
   return (
     <div 
-      className={`fixed bottom-6 right-6 z-40 transition-all duration-500 ${
-        isExpanded ? 'w-80' : 'w-auto'
-      }`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-      style={{
-        transform: isExpanded ? 'translateY(-4px)' : 'translateY(0)',
-      }}
+      className="fixed bottom-6 right-6 z-50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Main Card */}
       <div 
-        className="overflow-hidden transition-all duration-500"
+        className={`relative overflow-hidden transition-all duration-500 ease-out ${
+          isHovered ? 'w-[340px]' : 'w-[200px]'
+        }`}
         style={{
-          background: 'linear-gradient(135deg, rgba(30, 30, 40, 0.85) 0%, rgba(20, 20, 30, 0.7) 100%)',
-          backdropFilter: 'blur(24px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(200%)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '1rem',
-          boxShadow: isExpanded 
-            ? '0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 0 60px -15px rgba(30, 215, 96, 0.2)' 
-            : '0 10px 30px -10px rgba(0, 0, 0, 0.3)',
+          borderRadius: '20px',
         }}
       >
-        {isExpanded ? (
+        {/* Background with gradient border effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/20 via-transparent to-primary/10 rounded-[20px]" />
+        
+        {/* Card Content */}
+        <div className="relative bg-card/60 backdrop-blur-2xl border border-border/40 rounded-[20px] overflow-hidden transition-all duration-500 hover:border-[#1DB954]/30">
+          
+          {/* Top Glow Line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#1DB954] to-transparent opacity-60" />
+          
+          {/* Spotify Header - Always Visible */}
+          <div className="flex items-center gap-2 px-4 pt-3 pb-2">
+            <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="#1DB954">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#1DB954]">
+              Poslouchá na Spotify
+            </span>
+            
+            {/* Sound Bars */}
+            {data.isPlaying && (
+              <div className="flex items-end gap-[2px] ml-auto h-3">
+                <span className="w-[3px] bg-[#1DB954] rounded-sm animate-[soundbar_0.8s_ease-in-out_infinite]" style={{ height: '60%', animationDelay: '0ms' }} />
+                <span className="w-[3px] bg-[#1DB954] rounded-sm animate-[soundbar_0.8s_ease-in-out_infinite]" style={{ height: '100%', animationDelay: '200ms' }} />
+                <span className="w-[3px] bg-[#1DB954] rounded-sm animate-[soundbar_0.8s_ease-in-out_infinite]" style={{ height: '40%', animationDelay: '400ms' }} />
+                <span className="w-[3px] bg-[#1DB954] rounded-sm animate-[soundbar_0.8s_ease-in-out_infinite]" style={{ height: '80%', animationDelay: '600ms' }} />
+              </div>
+            )}
+          </div>
+
+          {/* Song Info */}
           <a 
             href={data.songUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="block p-4 hover:bg-white/5 transition-all duration-300"
+            className="block px-4 pb-2 group/link"
           >
-            {/* Header */}
-            <div className="flex items-center gap-2 mb-3">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#1DB954">
-                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-              </svg>
-              <span className="text-[11px] font-medium uppercase tracking-wider text-[#1DB954]">
-                Poslouchá na Spotify
-              </span>
-              {data.isPlaying && (
-                <div className="flex items-center gap-[3px] ml-auto">
-                  <span className="w-[3px] h-3 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '0ms' }} />
-                  <span className="w-[3px] h-4 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '150ms' }} />
-                  <span className="w-[3px] h-2 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '300ms' }} />
+            <div className="flex items-center gap-3">
+              {/* Album Art */}
+              {data.albumImageUrl && (
+                <div className="relative flex-shrink-0">
+                  <img 
+                    src={data.albumImageUrl} 
+                    alt={data.album}
+                    className={`rounded-xl object-cover shadow-lg transition-all duration-500 ${
+                      isHovered ? 'w-16 h-16' : 'w-12 h-12'
+                    }`}
+                  />
+                  {/* Album Glow */}
+                  <div className="absolute inset-0 rounded-xl bg-[#1DB954]/20 opacity-0 group-hover/link:opacity-100 transition-opacity blur-xl" />
                 </div>
               )}
-            </div>
-
-            {/* Content */}
-            <div className="flex items-center gap-3">
-              {data.albumImageUrl && (
-                <img 
-                  src={data.albumImageUrl} 
-                  alt={data.album}
-                  className="w-14 h-14 rounded-lg shadow-lg object-cover"
-                />
-              )}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold truncate text-white/95">
-                  {data.title}
-                </p>
-                <p className="text-xs text-white/60 truncate">
+              
+              {/* Track Details */}
+              <div className="flex-1 min-w-0 overflow-hidden">
+                <div className="flex items-center gap-2">
+                  <p className={`font-semibold truncate transition-all duration-300 ${
+                    isHovered ? 'text-sm text-foreground' : 'text-xs text-foreground/90'
+                  }`}>
+                    {data.title}
+                  </p>
+                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-0 group-hover/link:opacity-100 transition-opacity flex-shrink-0" />
+                </div>
+                <p className={`text-muted-foreground truncate transition-all duration-300 ${
+                  isHovered ? 'text-xs' : 'text-[11px]'
+                }`}>
                   {data.artist}
                 </p>
-              </div>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="mt-3">
-              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-[#1DB954] rounded-full transition-all duration-1000 ease-linear"
-                  style={{ width: `${Math.min(progressPercent, 100)}%` }}
-                />
-              </div>
-              <div className="flex justify-between mt-1.5">
-                <span className="text-[10px] text-white/40 font-medium tabular-nums">
-                  {formatTime(currentProgress)}
-                </span>
-                <span className="text-[10px] text-white/40 font-medium tabular-nums">
-                  {formatTime(data.duration || 0)}
-                </span>
+                {isHovered && data.album && (
+                  <p className="text-[10px] text-muted-foreground/60 truncate mt-0.5">
+                    {data.album}
+                  </p>
+                )}
               </div>
             </div>
           </a>
-        ) : (
-          <div className="p-3 cursor-pointer flex items-center gap-3">
-            {data.albumImageUrl ? (
-              <img 
-                src={data.albumImageUrl} 
-                alt={data.album}
-                className="w-10 h-10 rounded-lg shadow-md"
+
+          {/* Progress Section */}
+          <div className="px-4 pb-3">
+            {/* Progress Bar */}
+            <div className="relative h-1 bg-muted/30 rounded-full overflow-hidden">
+              {/* Animated Progress */}
+              <div 
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#1DB954] to-[#1ed760] rounded-full transition-all duration-1000 ease-linear"
+                style={{ width: `${Math.min(progressPercent, 100)}%` }}
               />
-            ) : (
-              <div className="w-10 h-10 rounded-lg bg-[#1DB954]/20 flex items-center justify-center">
-                <Music className="w-5 h-5 text-[#1DB954]" />
-              </div>
-            )}
-            <div className="flex items-center gap-[3px]">
-              <span className="w-[3px] h-2 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '0ms' }} />
-              <span className="w-[3px] h-3 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '150ms' }} />
-              <span className="w-[3px] h-2 bg-[#1DB954] rounded-full animate-[bounce_1s_ease-in-out_infinite]" style={{ animationDelay: '300ms' }} />
+              {/* Glow effect on progress */}
+              <div 
+                className="absolute inset-y-0 left-0 bg-[#1DB954] rounded-full blur-sm opacity-50 transition-all duration-1000"
+                style={{ width: `${Math.min(progressPercent, 100)}%` }}
+              />
+            </div>
+            
+            {/* Time Display */}
+            <div className="flex justify-between items-center mt-1.5">
+              <span className="text-[10px] text-muted-foreground/70 font-mono tabular-nums">
+                {formatTime(currentProgress)}
+              </span>
+              <span className="text-[10px] text-muted-foreground/70 font-mono tabular-nums">
+                {formatTime(data.duration || 0)}
+              </span>
             </div>
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Custom Keyframes */}
+      <style>{`
+        @keyframes soundbar {
+          0%, 100% { height: 20%; }
+          50% { height: 100%; }
+        }
+      `}</style>
     </div>
   );
 };
