@@ -1,32 +1,22 @@
 import { useEffect, useState } from "react";
 
 const ScrollProgressBar = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateScrollProgress = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
-      
-      const totalScrollableHeight = documentHeight - windowHeight;
-      const progress = (scrollTop / totalScrollableHeight) * 100;
-      
-      setScrollProgress(progress);
+    const handleScroll = () => {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY;
+      setProgress((scrolled / windowHeight) * 100);
     };
 
-    window.addEventListener("scroll", updateScrollProgress);
-    updateScrollProgress();
-
-    return () => window.removeEventListener("scroll", updateScrollProgress);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-slate-200/20 dark:bg-slate-800/20 z-50">
-      <div
-        className="h-full bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 transition-all duration-150 shadow-glow"
-        style={{ width: `${scrollProgress}%` }}
-      />
+    <div className="fixed top-0 left-0 right-0 h-1 bg-border z-[100]">
+      <div className="h-full bg-primary transition-all duration-100" style={{ width: `${progress}%` }} />
     </div>
   );
 };

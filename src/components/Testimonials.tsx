@@ -1,95 +1,79 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 
 const Testimonials = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   const testimonials = [
     {
       name: "Jan Novák",
       role: "Backend Developer",
       company: "TechCorp",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jan",
       text: "Skvělá spolupráce! Výborné znalosti Javy a Discord API. Projekt byl dodán včas a bez chyb.",
-      rating: 5,
     },
     {
       name: "Petra Svobodová",
       role: "Project Manager",
       company: "DevStudio",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Petra",
       text: "Profesionální přístup a rychlá komunikace. Dokáže vyřešit i ty nejtěžší problémy.",
-      rating: 5,
     },
     {
       name: "Martin Dvořák",
       role: "CTO",
       company: "StartupXYZ",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Martin",
       text: "Nejlepší Discord bot developer, se kterým jsem měl tu čest pracovat. Určitě doporučuji!",
-      rating: 5,
     },
   ];
 
   return (
-    <section
-      ref={ref}
-      className={`py-20 px-6 transition-all duration-1000 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
-    >
+    <section className="py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-            Co o mně říkají
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
-            Ohlasy od klientů a spolupracovníků
-          </p>
-        </div>
+        <div ref={ref} className={`transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+            <div className="space-y-4">
+              <span className="text-sm font-mono uppercase tracking-[0.3em] text-primary">
+                [05] Reference
+              </span>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
+                OHLASY
+              </h2>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="group hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border-slate-200/50 dark:border-slate-700/50"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <CardContent className="p-6">
-                <Quote className="w-10 h-10 text-violet-600/20 dark:text-violet-400/20 mb-4" />
-                
-                <p className="text-slate-700 dark:text-slate-300 mb-6 italic">
+          {/* Testimonials Grid */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="brutal-card group"
+                style={{ 
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transitionDelay: `${index * 100}ms`,
+                  transition: 'all 0.5s ease'
+                }}
+              >
+                {/* Quote Icon */}
+                <Quote className="w-10 h-10 text-primary/30 mb-6" />
+
+                {/* Text */}
+                <p className="text-foreground/90 leading-relaxed mb-8 font-sans italic">
                   "{testimonial.text}"
                 </p>
 
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full ring-2 ring-violet-600/20"
-                  />
-                  <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-slate-100">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {testimonial.role} • {testimonial.company}
-                    </p>
+                {/* Author */}
+                <div className="pt-6 border-t-2 border-border">
+                  <div className="font-bold text-lg">{testimonial.name}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {testimonial.role} — {testimonial.company}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

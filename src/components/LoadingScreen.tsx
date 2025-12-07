@@ -2,97 +2,39 @@ import { useEffect, useState } from "react";
 
 const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loadedResources, setLoadedResources] = useState(0);
-  const [totalResources, setTotalResources] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Count all resources to load
-    const images = Array.from(document.images);
-    const stylesheets = Array.from(document.styleSheets);
-    const scripts = Array.from(document.scripts);
-    
-    const total = images.length + stylesheets.length + scripts.length;
-    setTotalResources(total || 1); // Avoid division by zero
-    
-    let loaded = 0;
-    
-    const updateProgress = () => {
-      loaded++;
-      setLoadedResources(loaded);
-      const calculatedProgress = Math.min((loaded / total) * 100, 100);
-      setProgress(calculatedProgress);
-      
-      if (loaded >= total) {
-        setIsLoaded(true);
-      }
-    };
-    
-    // Track image loading
-    images.forEach((img) => {
-      if (img.complete) {
-        updateProgress();
-      } else {
-        img.addEventListener('load', updateProgress);
-        img.addEventListener('error', updateProgress); // Count errors as loaded
-      }
-    });
-    
-    // Track document readyState
-    const checkDocumentState = () => {
-      if (document.readyState === 'complete') {
-        // Add remaining count if not all resources fired events
-        const remaining = total - loaded;
-        if (remaining > 0) {
-          loaded = total;
-          setLoadedResources(total);
-          setProgress(100);
-          setIsLoaded(true);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setIsExiting(true);
+            setTimeout(onLoadComplete, 500);
+          }, 300);
+          return 100;
         }
-      }
-    };
-    
-    document.addEventListener('readystatechange', checkDocumentState);
-    window.addEventListener('load', checkDocumentState);
-    
-    // Initial check
-    checkDocumentState();
-    
-    return () => {
-      document.removeEventListener('readystatechange', checkDocumentState);
-      images.forEach((img) => {
-        img.removeEventListener('load', updateProgress);
-        img.removeEventListener('error', updateProgress);
+        return prev + Math.random() * 15;
       });
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isLoaded && progress === 100) {
-      const timer = setTimeout(() => {
-        onLoadComplete();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoaded, progress, onLoadComplete]);
+    }, 100);
+    return () => clearInterval(interval);
+  }, [onLoadComplete]);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-background flex items-center justify-center">
-      <div className="max-w-md w-full px-8">
-        <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-text bg-clip-text text-transparent tracking-tight">
-          Loading...
-        </h1>
-        
-        <div className="w-full bg-muted/20 rounded-full h-2 overflow-hidden mb-4">
-          <div 
-            className="h-full bg-gradient-primary transition-all duration-500 ease-out"
-            style={{ width: `${progress}%` }}
-          />
+    <div className={`fixed inset-0 bg-background z-[9999] flex flex-col items-center justify-center transition-opacity duration-500 ${isExiting ? "opacity-0" : "opacity-100"}`}>
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-12">
+        <span className="text-foreground">BLOBY</span>
+        <span className="neon-text">CZ</span>
+      </h1>
+      <div className="w-64 md:w-96">
+        <div className="h-2 bg-border border-2 border-foreground">
+          <div className="h-full bg-primary transition-all duration-200" style={{ width: `${Math.min(progress, 100)}%` }} />
         </div>
-        
-        <p className="text-center text-sm text-foreground/60">
-          {totalResources > 0 && `${loadedResources}/${totalResources} resources`}
-        </p>
+        <div className="flex justify-between items-center mt-4 font-mono text-sm">
+          <span className="text-muted-foreground">LOADING</span>
+          <span className="neon-text font-bold">{Math.round(Math.min(progress, 100))}%</span>
+        </div>
       </div>
     </div>
   );

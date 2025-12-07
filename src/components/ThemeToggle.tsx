@@ -5,10 +5,8 @@ const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    // Check for saved theme preference or default to dark
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
     if (savedTheme === "light" || (!savedTheme && !prefersDark)) {
       setIsDark(false);
       document.documentElement.classList.remove("dark");
@@ -20,7 +18,6 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     setIsDark(!isDark);
-    
     if (!isDark) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -31,16 +28,8 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-3 rounded-xl bg-card/50 backdrop-blur-xl border border-border/50 hover:border-primary/30 hover:bg-card/70 transition-all duration-300"
-      aria-label="Toggle theme"
-    >
-      {isDark ? (
-        <Sun className="w-5 h-5 text-foreground" />
-      ) : (
-        <Moon className="w-5 h-5 text-foreground" />
-      )}
+    <button onClick={toggleTheme} className="p-2 border-2 border-foreground hover:bg-foreground hover:text-background transition-colors" aria-label="Toggle theme">
+      {isDark ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 };
