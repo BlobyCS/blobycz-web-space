@@ -17,21 +17,13 @@ interface DownloadFile {
   is_active: boolean;
 }
 
-interface DownloadStat {
-  file_id: string;
-  filename: string;
-  unique_downloads: number;
-  total_downloads: number;
-  countries_count: number;
-  last_download: string | null;
-}
 
 export default function Admin() {
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [files, setFiles] = useState<DownloadFile[]>([]);
-  const [stats, setStats] = useState<DownloadStat[]>([]);
+  
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -60,7 +52,7 @@ export default function Admin() {
 
       if (hasAdminRole) {
         await loadFiles();
-        await loadStats();
+        
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -87,17 +79,6 @@ export default function Admin() {
     setFiles(data || []);
   };
 
-  const loadStats = async () => {
-    const { data, error } = await supabase
-      .rpc("get_download_stats");
-
-    if (error) {
-      console.error("Stats error:", error);
-      return;
-    }
-
-    setStats(data || []);
-  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -198,47 +179,6 @@ export default function Admin() {
           </CardContent>
         </Card>
 
-        <Card className="glass-effect">
-          <CardHeader>
-            <CardTitle>Statistiky stahování</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Soubor</TableHead>
-                  <TableHead>Unikátní stažení</TableHead>
-                  <TableHead>Celkem stažení</TableHead>
-                  <TableHead>Zemí</TableHead>
-                  <TableHead>Poslední stažení</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {stats.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground">
-                      Žádné statistiky
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  stats.map((stat) => (
-                    <TableRow key={stat.file_id}>
-                      <TableCell className="font-medium">{stat.filename}</TableCell>
-                      <TableCell>{stat.unique_downloads}</TableCell>
-                      <TableCell>{stat.total_downloads}</TableCell>
-                      <TableCell>{stat.countries_count}</TableCell>
-                      <TableCell>
-                        {stat.last_download
-                          ? new Date(stat.last_download).toLocaleDateString("cs-CZ")
-                          : "Nikdy"}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
