@@ -14,60 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      assets: {
-        Row: {
-          city: string | null
-          country: string | null
-          download_date: string | null
-          email: string
-          file_id: string | null
-          id: string
-          ip_address: string | null
-          latitude: number | null
-          longitude: number | null
-          user_agent: string | null
-        }
-        Insert: {
-          city?: string | null
-          country?: string | null
-          download_date?: string | null
-          email: string
-          file_id?: string | null
-          id?: string
-          ip_address?: string | null
-          latitude?: number | null
-          longitude?: number | null
-          user_agent?: string | null
-        }
-        Update: {
-          city?: string | null
-          country?: string | null
-          download_date?: string | null
-          email?: string
-          file_id?: string | null
-          id?: string
-          ip_address?: string | null
-          latitude?: number | null
-          longitude?: number | null
-          user_agent?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "assets_file_id_fkey"
-            columns: ["file_id"]
-            isOneToOne: false
-            referencedRelation: "download_files"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "assets_file_id_fkey"
-            columns: ["file_id"]
-            isOneToOne: false
-            referencedRelation: "download_stats"
-            referencedColumns: ["file_id"]
-          },
-        ]
-      }
       download_files: {
         Row: {
           description: string | null
@@ -136,30 +82,9 @@ export type Database = {
       }
     }
     Views: {
-      download_stats: {
-        Row: {
-          countries_count: number | null
-          file_id: string | null
-          filename: string | null
-          last_download: string | null
-          total_downloads: number | null
-          unique_downloads: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      get_download_stats: {
-        Args: never
-        Returns: {
-          countries_count: number
-          file_id: string
-          filename: string
-          last_download: string
-          total_downloads: number
-          unique_downloads: number
-        }[]
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
