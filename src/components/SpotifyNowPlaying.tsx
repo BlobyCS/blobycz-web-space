@@ -90,7 +90,7 @@ const SpotifyNowPlaying = () => {
   if (loading) {
     return (
       <div className="fixed bottom-8 right-8 z-50">
-        <div className="bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-xl">
+        <div className="bg-slate-900/0 backdrop-blur-xl border border-slate-700/30 rounded-2xl p-4 shadow-xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-slate-800 flex items-center justify-center rounded-xl animate-pulse">
               <Music className="w-6 h-6 text-slate-400" />
@@ -110,7 +110,7 @@ const SpotifyNowPlaying = () => {
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-xl transition-all duration-300 ${
+      <div className={`bg-slate-900/0 backdrop-blur-xl border border-slate-700/30 rounded-2xl shadow-xl transition-all duration-300 ${
         isHovered && isActive ? "p-5 min-w-[320px]" : "p-4"
       }`}>
         <div className="flex items-start gap-4">
