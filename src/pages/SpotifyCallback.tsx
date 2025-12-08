@@ -16,29 +16,40 @@ const SpotifyCallback = () => {
 
     if (error) {
       setStatus("error");
-      setErrorMessage(`Spotify error: ${error}`);
+      setErrorMessage(`Spotify chyba: ${error}`);
       console.error("Spotify authorization error:", error);
       return;
     }
 
     if (!code) {
       setStatus("error");
-      setErrorMessage("Missing authorization code");
+      setErrorMessage("Chybí autorizační kód");
       return;
     }
 
     const exchangeCode = async () => {
       try {
-        console.log("Exchanging code for tokens...");
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl) {
+          throw new Error("Chybí konfigurace VITE_SUPABASE_URL");
+        }
+
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+        };
+
+        // Přidej Authorization header pouze pokud je dostupný anon key
+        if (anonKey) {
+          headers["Authorization"] = `Bearer ${anonKey}`;
+        }
 
         const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/spotify?action=callback`,
+          `${supabaseUrl}/functions/v1/spotify?action=callback`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-            },
+            headers,
             body: JSON.stringify({ 
               code, 
               redirectUri: REDIRECT_URI 
@@ -46,25 +57,42 @@ const SpotifyCallback = () => {
           }
         );
 
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+
         const data = await response.json();
-        console.log("Response:", data);
 
         if (data.success && data.refreshToken) {
           setStatus("success");
           setRefreshToken(data.refreshToken);
         } else {
-          throw new Error(data.error || "Failed to exchange code");
+          throw new Error(data.error || "Nepodařilo se vyměnit kód za token");
         }
 
       } catch (err) {
         console.error("Callback error:", err);
         setStatus("error");
-        setErrorMessage(err instanceof Error ? err.message : "Connection failed");
+        setErrorMessage(
+          err instanceof Error 
+            ? err.message 
+            : "Nepodařilo se připojit ke Spotify"
+        );
       }
     };
 
     exchangeCode();
-  }, [navigate]);
+  }, []);
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(refreshToken);
+      // Mohli bychom přidat toast notifikaci
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-bg flex items-center justify-center px-4">
@@ -86,18 +114,33 @@ const SpotifyCallback = () => {
                 </svg>
               </div>
               <h1 className="text-2xl font-bold mb-2">Úspěch!</h1>
-              <p className="text-muted-foreground mb-4">Zkopíruj tento refresh token a ulož ho jako secret:</p>
-              <div className="bg-muted/30 rounded-xl p-4 mb-4">
-                <code className="text-xs text-green-400 break-all select-all">
+              <p className="text-muted-foreground mb-4">
+                Zkopíruj tento refresh token a ulož ho jako secret v Supabase:
+              </p>
+              <div className="bg-muted/30 rounded-xl p-4 mb-4 relative group">
+                <code className="text-xs text-green-400 break-all select-all block">
                   {refreshToken}
                 </code>
+                <button
+                  onClick={copyToClipboard}
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs"
+                  title="Zkopírovat"
+                >
+                  Kopírovat
+                </button>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Ulož jako <code className="text-primary">SPOTIFY_REFRESH_TOKEN</code>
-              </p>
+              <div className="text-left bg-muted/20 rounded-xl p-4 mb-4 text-sm">
+                <p className="font-semibold mb-2">Jak nastavit:</p>
+                <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
+                  <li>Otevři Supabase Dashboard</li>
+                  <li>Jdi do Settings → Edge Functions</li>
+                  <li>Přidej secret: <code className="text-primary">SPOTIFY_REFRESH_TOKEN</code></li>
+                  <li>Vlož zkopírovaný token</li>
+                </ol>
+              </div>
               <button
                 onClick={() => navigate("/")}
-                className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition"
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition font-medium"
               >
                 Zpět na hlavní stránku
               </button>
@@ -111,13 +154,16 @@ const SpotifyCallback = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold mb-2">Chyba</h1>
-              <p className="text-muted-foreground">{errorMessage || "Nepodařilo se připojit"}</p>
+              <h1 className="text-2xl font-bold mb-2">Chyba autorizace</h1>
+              <p className="text-muted-foreground mb-2">{errorMessage}</p>
+              <p className="text-xs text-muted-foreground/70 mb-4">
+                Zkus to prosím znovu nebo zkontroluj konfiguraci Spotify API.
+              </p>
               <button
                 onClick={() => navigate("/")}
-                className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition"
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition font-medium"
               >
-                Zpět
+                Zpět na hlavní stránku
               </button>
             </>
           )}
