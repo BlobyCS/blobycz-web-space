@@ -7,38 +7,24 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex flex-col justify-center pt-24 px-6 lg:px-12 relative overflow-hidden">
-      {/* Grid Background */}
-      <div className="absolute inset-0 grid-pattern opacity-50" />
-      
-      {/* Large decorative text */}
-      <div className="absolute top-1/4 right-0 text-[20vw] font-bold text-foreground/[0.02] leading-none select-none pointer-events-none">
-        DEV
-      </div>
-
-      <div ref={ref} className="max-w-7xl mx-auto w-full relative z-10">
-        <div className={`space-y-12 transition-all duration-700 ${
+      <div ref={ref} className="max-w-6xl mx-auto w-full relative z-10">
+        <div className={`space-y-8 transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           {/* Status Badge */}
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-primary animate-pulse" />
-            <span className="text-sm font-mono uppercase tracking-[0.3em] text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            <span className="text-sm text-muted-foreground">
               Available for work
             </span>
           </div>
 
           {/* Main Title */}
-          <div className="space-y-4">
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.85]">
-              <span className="block">BLOBY</span>
-              <span className="block neon-text">CZ</span>
+          <div className="space-y-2">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              BlobyCZ
             </h1>
-          </div>
-
-          {/* Role with Typing */}
-          <div className="flex items-center gap-4 border-l-4 border-primary pl-6">
-            <div className="text-xl sm:text-2xl md:text-3xl font-mono text-foreground/80">
-              <span className="text-primary">{">"}</span>{" "}
+            <div className="text-xl sm:text-2xl text-muted-foreground">
               <TypingEffect 
                 texts={[
                   "Discord Bot Developer",
@@ -50,47 +36,51 @@ const Hero = () => {
                 deletingSpeed={40}
                 delayBetweenTexts={2000}
               />
-              <span className="terminal-cursor" />
+              <span className="animate-pulse">|</span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed font-sans">
-            Vytvářím Discord boty a Minecraft pluginy s čistým kódem a moderním přístupem. 
-            Zaměřuji se na výkon, škálovatelnost a uživatelský zážitek.
+          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+            Vytvářím Discord boty a Minecraft pluginy s čistým kódem a moderním přístupem.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <a href="#projects" className="brutal-button inline-block text-center">
-              Projekty
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+            <a 
+              href="#projects" 
+              className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Zobrazit projekty
             </a>
-            <a href="#contact" className="brutal-outline inline-block text-center">
-              Kontakt
+            <a 
+              href="#contact" 
+              className="inline-flex items-center justify-center px-6 py-3 border border-border font-medium rounded-lg hover:bg-secondary transition-colors"
+            >
+              Kontaktovat
             </a>
           </div>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-8 pt-12 border-t-2 border-border mt-12">
+          <div className="grid grid-cols-3 gap-6 pt-12 mt-8 border-t border-border">
             <div>
-              <div className="text-4xl md:text-5xl font-bold neon-text">2+</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider mt-1">Roky exp.</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary">2+</div>
+              <div className="text-sm text-muted-foreground mt-1">Roky zkušeností</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold">10+</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider mt-1">Projektů</div>
+              <div className="text-3xl md:text-4xl font-bold">10+</div>
+              <div className="text-sm text-muted-foreground mt-1">Projektů</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold">100%</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider mt-1">Spolehlivost</div>
+              <div className="text-3xl md:text-4xl font-bold">100%</div>
+              <div className="text-sm text-muted-foreground mt-1">Spolehlivost</div>
             </div>
           </div>
         </div>
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-xs uppercase tracking-widest text-muted-foreground">Scroll</span>
-          <ArrowDown className="w-4 h-4 text-primary" />
+          <ArrowDown className="w-5 h-5 text-muted-foreground" />
         </div>
       </div>
     </section>

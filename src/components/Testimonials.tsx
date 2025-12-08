@@ -9,7 +9,7 @@ const Testimonials = () => {
       name: "Jan Novák",
       role: "Backend Developer",
       company: "TechCorp",
-      text: "Skvělá spolupráce! Výborné znalosti Javy a Discord API. Projekt byl dodán včas a bez chyb.",
+      text: "Skvělá spolupráce! Výborné znalosti Javy a Discord API. Projekt byl dodán včas.",
     },
     {
       name: "Petra Svobodová",
@@ -21,26 +21,24 @@ const Testimonials = () => {
       name: "Martin Dvořák",
       role: "CTO",
       company: "StartupXYZ",
-      text: "Nejlepší Discord bot developer, se kterým jsem měl tu čest pracovat. Určitě doporučuji!",
+      text: "Nejlepší Discord bot developer, se kterým jsem měl tu čest pracovat.",
     },
   ];
 
   return (
-    <section className="py-32 px-6 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-24 px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto">
         <div ref={ref} className={`transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
-            <div className="space-y-4">
-              <span className="text-sm font-mono uppercase tracking-[0.3em] text-primary">
-                [05] Reference
-              </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
-                OHLASY
-              </h2>
-            </div>
+          <div className="mb-12">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-primary mb-4 block">
+              Reference
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Ohlasy
+            </h2>
           </div>
 
           {/* Testimonials Grid */}
@@ -48,7 +46,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="brutal-card group"
+                className="p-6 bg-card border border-border rounded-lg"
                 style={{ 
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
@@ -56,17 +54,12 @@ const Testimonials = () => {
                   transition: 'all 0.5s ease'
                 }}
               >
-                {/* Quote Icon */}
-                <Quote className="w-10 h-10 text-primary/30 mb-6" />
-
-                {/* Text */}
-                <p className="text-foreground/90 leading-relaxed mb-8 font-sans italic">
+                <Quote className="w-8 h-8 text-primary/20 mb-4" />
+                <p className="text-muted-foreground leading-relaxed mb-6 italic">
                   "{testimonial.text}"
                 </p>
-
-                {/* Author */}
-                <div className="pt-6 border-t-2 border-border">
-                  <div className="font-bold text-lg">{testimonial.name}</div>
+                <div className="pt-4 border-t border-border">
+                  <div className="font-medium">{testimonial.name}</div>
                   <div className="text-sm text-muted-foreground">
                     {testimonial.role} — {testimonial.company}
                   </div>
