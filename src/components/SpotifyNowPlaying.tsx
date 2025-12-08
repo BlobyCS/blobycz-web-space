@@ -15,6 +15,8 @@ const SpotifyNowPlaying = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [localProgress, setLocalProgress] = useState<number>(0);
+  const [lastFetchTime, setLastFetchTime] = useState<number>(Date.now());
 
   useEffect(() => {
     const fetchNowPlaying = async () => {
@@ -40,6 +42,10 @@ const SpotifyNowPlaying = () => {
         if (response.ok) {
           const data = await response.json();
           setNowPlaying(data);
+          if (data.progress !== undefined) {
+            setLocalProgress(data.progress);
+            setLastFetchTime(Date.now());
+          }
         } else {
           console.error('Spotify API error:', response.status);
           setNowPlaying({ isPlaying: false });
@@ -57,6 +63,25 @@ const SpotifyNowPlaying = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Aktualizuj progress každých 100ms když hraje
+  useEffect(() => {
+    if (!nowPlaying?.isPlaying || nowPlaying.progress === undefined) {
+      return;
+    }
+
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - lastFetchTime;
+      const newProgress = (nowPlaying.progress || 0) + elapsed;
+      
+      // Nepřekroč duration
+      if (nowPlaying.duration && newProgress <= nowPlaying.duration) {
+        setLocalProgress(newProgress);
+      }
+    }, 100);
+
+    return () => clearInterval(progressInterval);
+  }, [nowPlaying, lastFetchTime]);
+
   const formatTime = (ms: number) => {
     const seconds = Math.floor(ms / 1000);
     const mins = Math.floor(seconds / 60);
@@ -67,9 +92,9 @@ const SpotifyNowPlaying = () => {
   if (loading) {
     return (
       <div className="fixed bottom-6 right-6 z-50">
-        <div className="bg-card/95 backdrop-blur-sm border border-border p-3">
+        <div className="bg-card/95 backdrop-blur-sm border border-border p-3 rounded-lg">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-muted flex items-center justify-center animate-pulse">
+            <div className="w-10 h-10 bg-muted flex items-center justify-center rounded animate-pulse">
               <Music className="w-5 h-5 text-muted-foreground" />
             </div>
             <span className="text-xs text-muted-foreground">Načítání...</span>
@@ -85,7 +110,7 @@ const SpotifyNowPlaying = () => {
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`bg-card/95 backdrop-blur-sm border border-border transition-all duration-300 ${
+      <div className={`bg-card/95 backdrop-blur-sm border border-border transition-all duration-300 rounded-lg ${
         isHovered && nowPlaying?.isPlaying ? "p-4 min-w-[280px]" : "p-3"
       }`}>
         <div className="flex items-center gap-3">
@@ -93,10 +118,10 @@ const SpotifyNowPlaying = () => {
             <img 
               src={nowPlaying.albumImageUrl} 
               alt="Album" 
-              className="w-10 h-10 object-cover"
+              className="w-10 h-10 object-cover rounded"
             />
           ) : (
-            <div className="w-10 h-10 bg-muted flex items-center justify-center">
+            <div className="w-10 h-10 bg-muted flex items-center justify-center rounded">
               <Music className="w-5 h-5 text-muted-foreground" />
             </div>
           )}
@@ -118,16 +143,16 @@ const SpotifyNowPlaying = () => {
                     {nowPlaying.title}
                   </a>
                   <p className="text-xs text-muted-foreground truncate">{nowPlaying.artist}</p>
-                  {nowPlaying.progress !== undefined && nowPlaying.duration && (
+                  {nowPlaying.duration && (
                     <div className="mt-2">
                       <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-primary rounded-full transition-all duration-300"
-                          style={{ width: `${(nowPlaying.progress / nowPlaying.duration) * 100}%` }}
+                          className="h-full bg-primary rounded-full transition-all duration-100"
+                          style={{ width: `${Math.min((localProgress / nowPlaying.duration) * 100, 100)}%` }}
                         />
                       </div>
                       <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
-                        <span>{formatTime(nowPlaying.progress)}</span>
+                        <span>{formatTime(localProgress)}</span>
                         <span>{formatTime(nowPlaying.duration)}</span>
                       </div>
                     </div>
