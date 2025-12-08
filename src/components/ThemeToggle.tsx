@@ -28,8 +28,12 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="p-2 border-2 border-foreground hover:bg-foreground hover:text-background transition-colors" aria-label="Toggle theme">
-      {isDark ? <Sun size={20} /> : <Moon size={20} />}
+    <button 
+      onClick={toggleTheme} 
+      className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary" 
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
   );
 };

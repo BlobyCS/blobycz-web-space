@@ -7,92 +7,75 @@ const Projects = () => {
   const projects = [
     {
       title: "ZikyZone",
-      description: "Moderní Discord bot s pokročilými funkcemi pro správu serverů a zábavu uživatelů. Nabízí automatizaci, moderaci a interaktivní příkazy.",
+      description: "Moderní Discord bot s pokročilými funkcemi pro správu serverů a zábavu uživatelů.",
       tech: ["JavaScript", "Discord.js", "Node.js"],
       type: "Discord Bot",
-      number: "01",
+      link: "https://github.com/Bloby22/ZikyZone",
     },
     {
       title: "InsaneKick",
-      description: "Minecraft plugin přidávající nové funkce a zlepšující herní zážitek. Optimalizované pro výkon a stabilitu serveru.",
+      description: "Minecraft plugin přidávající nové funkce a zlepšující herní zážitek.",
       tech: ["Java", "Spigot API", "Minecraft"],
       type: "Minecraft Plugin",
-      number: "02",
+      link: "https://github.com/Bloby22/InsaneKick",
     },
   ];
 
   return (
-    <section id="projects" className="py-32 px-6 lg:px-12 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-24 px-6 lg:px-12 relative">
+      <div className="max-w-6xl mx-auto">
         <div ref={ref} className={`transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
-            <div className="space-y-4">
-              <span className="text-sm font-mono uppercase tracking-[0.3em] text-primary">
-                [03] Portfolio
-              </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
-                PROJEKTY
-              </h2>
-            </div>
-            <p className="text-muted-foreground max-w-md font-sans">
-              Vybrané projekty, na kterých jsem pracoval. Každý projekt je unikátní výzva s vlastními požadavky.
-            </p>
+          <div className="mb-16">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-primary mb-4 block">
+              Portfolio
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Projekty
+            </h2>
           </div>
 
-          {/* Projects List */}
-          <div className="space-y-8">
+          {/* Projects Grid */}
+          <div className="grid gap-6 md:grid-cols-2">
             {projects.map((project, index) => (
-              <div
+              <a
                 key={project.title}
-                className="group brutal-card cursor-pointer"
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block p-6 bg-card border border-border hover:border-primary/50 transition-all duration-300"
                 style={{ 
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
                   transitionDelay: `${index * 150}ms`,
-                  transition: 'all 0.6s ease'
+                  transition: 'all 0.5s ease'
                 }}
               >
-                <div className="grid md:grid-cols-12 gap-8 items-start">
-                  {/* Number */}
-                  <div className="md:col-span-1">
-                    <span className="text-6xl font-bold text-muted-foreground/30 group-hover:text-primary transition-colors">
-                      {project.number}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="md:col-span-8 space-y-4">
-                    <div className="flex items-center gap-4">
-                      <span className="px-3 py-1 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider">
-                        {project.type}
-                      </span>
-                    </div>
-                    <h3 className="text-3xl md:text-4xl font-bold group-hover:neon-text transition-all">
-                      {project.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed font-sans">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-4">
-                      {project.tech.map((tech) => (
-                        <span key={tech} className="px-3 py-1 border-2 border-border text-sm font-bold uppercase">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="md:col-span-3 flex md:justify-end items-start">
-                    <div className="p-4 border-2 border-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
-                      <ArrowUpRight className="w-6 h-6 group-hover:rotate-45 transition-transform" />
-                    </div>
-                  </div>
+                <div className="flex items-start justify-between mb-4">
+                  <span className="text-xs font-mono uppercase tracking-wider text-primary px-2 py-1 bg-primary/10">
+                    {project.type}
+                  </span>
+                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </div>
-              </div>
+                
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
+                
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech) => (
+                    <span key={tech} className="text-xs px-2 py-1 bg-muted text-muted-foreground">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </a>
             ))}
           </div>
         </div>
