@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Music, Pause } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { Music } from "lucide-react";
 
 interface NowPlayingData {
   isPlaying: boolean;
@@ -20,14 +19,16 @@ const SpotifyNowPlaying = () => {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke('spotify', {
-          body: {},
-          headers: {},
-        });
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
         
-        // Parse the action from URL
+        if (!supabaseUrl) {
+          console.error('VITE_SUPABASE_URL is not defined');
+          setLoading(false);
+          return;
+        }
+
         const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/spotify?action=now-playing`,
+          `${supabaseUrl}/functions/v1/spotify?action=now-playing`,
           {
             method: 'GET',
             headers: {
@@ -39,9 +40,13 @@ const SpotifyNowPlaying = () => {
         if (response.ok) {
           const data = await response.json();
           setNowPlaying(data);
+        } else {
+          console.error('Spotify API error:', response.status);
+          setNowPlaying({ isPlaying: false });
         }
       } catch (error) {
         console.error('Spotify fetch error:', error);
+        setNowPlaying({ isPlaying: false });
       } finally {
         setLoading(false);
       }
@@ -58,6 +63,21 @@ const SpotifyNowPlaying = () => {
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
+
+  if (loading) {
+    return (
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="bg-card/95 backdrop-blur-sm border border-border p-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-muted flex items-center justify-center animate-pulse">
+              <Music className="w-5 h-5 text-muted-foreground" />
+            </div>
+            <span className="text-xs text-muted-foreground">Načítání...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -98,7 +118,7 @@ const SpotifyNowPlaying = () => {
                     {nowPlaying.title}
                   </a>
                   <p className="text-xs text-muted-foreground truncate">{nowPlaying.artist}</p>
-                  {nowPlaying.progress && nowPlaying.duration && (
+                  {nowPlaying.progress !== undefined && nowPlaying.duration && (
                     <div className="mt-2">
                       <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <div 
