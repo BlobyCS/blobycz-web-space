@@ -21,7 +21,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background relative noise">
+    <div className="min-h-screen bg-background relative">
       <ScrollProgressBar />
       <Navbar />
       <SpotifyNowPlaying />
