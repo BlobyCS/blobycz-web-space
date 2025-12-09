@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { GitCommit, Users, ExternalLink } from "lucide-react";
+import { GitCommit, Star, GitFork, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const GithubActivity = () => {
@@ -14,50 +14,48 @@ const GithubActivity = () => {
   }, []);
 
   return (
-    <section className="py-32 px-6 lg:px-12 relative">
-      <div className="max-w-5xl mx-auto">
-        <div ref={ref} className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+    <section className="py-24 px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto">
+        <div ref={ref} className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <span className="inline-block text-sm font-mono uppercase tracking-[0.3em] text-primary mb-4">GitHub</span>
-              <h2 className="text-4xl md:text-6xl font-bold">
-                Moje <span className="gradient-text">aktivita</span>
-              </h2>
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-primary mb-4 block">GitHub</span>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Aktivita</h2>
             </div>
             <a 
               href="https://github.com/bloby22" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all font-medium"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Zobrazit profil <ExternalLink className="w-4 h-4" />
             </a>
           </div>
           
           <div className="grid md:grid-cols-3 gap-4 mb-8">
-            <div className="glass-card p-6 text-center">
-              <GitCommit className="w-8 h-8 mx-auto mb-4 text-primary" />
-              <div className="text-4xl font-bold gradient-text mb-2">{stats?.public_repos || "—"}</div>
-              <div className="text-muted-foreground">Veřejné repozitáře</div>
+            <div className="p-6 bg-card border border-border rounded-lg text-center">
+              <GitCommit className="w-6 h-6 mx-auto mb-3 text-primary" />
+              <div className="text-3xl font-bold text-primary mb-1">{stats?.public_repos || "—"}</div>
+              <div className="text-sm text-muted-foreground">Veřejné repozitáře</div>
             </div>
-            <div className="glass-card p-6 text-center">
-              <Users className="w-8 h-8 mx-auto mb-4 text-primary" />
-              <div className="text-4xl font-bold mb-2">{stats?.followers || "—"}</div>
-              <div className="text-muted-foreground">Followers</div>
+            <div className="p-6 bg-card border border-border rounded-lg text-center">
+              <Star className="w-6 h-6 mx-auto mb-3 text-primary" />
+              <div className="text-3xl font-bold mb-1">{stats?.followers || "—"}</div>
+              <div className="text-sm text-muted-foreground">Followers</div>
             </div>
-            <div className="glass-card p-6 text-center">
-              <Users className="w-8 h-8 mx-auto mb-4 text-primary" />
-              <div className="text-4xl font-bold mb-2">{stats?.following || "—"}</div>
-              <div className="text-muted-foreground">Following</div>
+            <div className="p-6 bg-card border border-border rounded-lg text-center">
+              <GitFork className="w-6 h-6 mx-auto mb-3 text-primary" />
+              <div className="text-3xl font-bold mb-1">{stats?.following || "—"}</div>
+              <div className="text-sm text-muted-foreground">Following</div>
             </div>
           </div>
           
-          <div className="glass-card p-8">
-            <div className="text-sm text-muted-foreground mb-6 font-mono text-center">Contribution Graph</div>
+          <div className="p-6 bg-card border border-border rounded-lg">
+            <div className="text-sm text-muted-foreground mb-4 font-mono">Contribution Graph</div>
             <img 
-              src="https://ghchart.rshah.org/7c3aed/bloby22" 
+              src="https://ghchart.rshah.org/22c55e/bloby22" 
               alt="GitHub Contribution Graph" 
-              className="w-full dark:brightness-90" 
+              className="w-full dark:invert dark:brightness-90" 
             />
           </div>
         </div>

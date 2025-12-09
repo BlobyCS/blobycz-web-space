@@ -11,6 +11,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -24,51 +25,70 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { label: "O mně", action: () => scrollToSection("about") },
-    { label: "Dovednosti", action: () => scrollToSection("skills") },
+    { label: "Domů", action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
+    { label: "O mě", action: () => scrollToSection("about") },
+    { label: "Skills", action: () => scrollToSection("skills") },
     { label: "Projekty", action: () => scrollToSection("projects") },
     { label: "Kontakt", action: () => scrollToSection("contact") },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled ? "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3" : "py-5"
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : ""
     }`}>
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="flex items-center justify-between">
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-xl font-bold hover:opacity-80 transition-opacity"
-          >
-            <span className="gradient-text">Bloby</span>CZ
-          </button>
-
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={item.action}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all"
-              >
-                {item.label}
-              </button>
-            ))}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="font-bold text-xl">
+            Bloby<span className="text-primary">CZ</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-2">
-            <a href="https://github.com/bloby22" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all">
-              <Github size={18} />
-            </a>
-            <a href="https://discord.com/users/1178258199590228078" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all">
-              <SiDiscord size={18} />
-            </a>
-            <a href="https://instagram.com/blobycz" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all">
-              <Instagram size={18} />
-            </a>
-            <div className="w-px h-6 bg-border mx-2" />
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={item.action}
+                  className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-1 pl-4 border-l border-border">
+              <a
+                href="https://github.com/bloby22"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href="https://discord.com/users/1178258199590228078"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <SiDiscord size={18} />
+              </a>
+              <a
+                href="https://instagram.com/blobycz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Instagram size={18} />
+              </a>
+            </div>
+
             <ThemeToggle />
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -78,27 +98,32 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border">
+        <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border">
           <div className="px-6 py-4 space-y-1">
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={item.action}
-                className="block w-full text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl transition-all"
+                onClick={() => {
+                  item.action();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.label}
               </button>
             ))}
+
             <div className="flex items-center justify-between pt-4 mt-4 border-t border-border">
-              <div className="flex items-center gap-1">
-                <a href="https://github.com/bloby22" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl">
+              <div className="flex items-center gap-2">
+                <a href="https://github.com/bloby22" target="_blank" rel="noopener noreferrer" className="p-2 text-muted-foreground hover:text-foreground">
                   <Github size={18} />
                 </a>
-                <a href="https://discord.com/users/1178258199590228078" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl">
+                <a href="https://discord.com/users/1178258199590228078" target="_blank" rel="noopener noreferrer" className="p-2 text-muted-foreground hover:text-foreground">
                   <SiDiscord size={18} />
                 </a>
-                <a href="https://instagram.com/blobycz" target="_blank" rel="noopener noreferrer" className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl">
+                <a href="https://instagram.com/blobycz" target="_blank" rel="noopener noreferrer" className="p-2 text-muted-foreground hover:text-foreground">
                   <Instagram size={18} />
                 </a>
               </div>
