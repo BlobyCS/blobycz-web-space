@@ -89,13 +89,13 @@ const SpotifyNowPlaying = () => {
 
   if (loading) {
     return (
-      <div className="fixed bottom-8 right-8 z-50">
-        <div className="bg-slate-900/0 border border-slate-700/30 rounded-2xl p-4 shadow-xl">
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="bg-card/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-slate-800 flex items-center justify-center rounded-xl animate-pulse">
-              <Music className="w-6 h-6 text-slate-400" />
+            <div className="w-10 h-10 bg-muted flex items-center justify-center rounded animate-pulse">
+              <Music className="w-5 h-5 text-muted-foreground" />
             </div>
-            <span className="text-sm text-slate-400">Načítání...</span>
+            <span className="text-sm text-muted-foreground">Načítání...</span>
           </div>
         </div>
       </div>
@@ -106,74 +106,74 @@ const SpotifyNowPlaying = () => {
 
   return (
     <div 
-      className="fixed bottom-8 right-8 z-50" 
+      className="fixed bottom-6 right-6 z-50" 
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`bg-slate-900/0 border border-slate-700/30 rounded-2xl shadow-xl transition-all duration-300 ${
-        isHovered && isActive ? "p-5 min-w-[320px]" : "p-4"
+      <div className={`bg-card/95 backdrop-blur-sm border border-border rounded-lg shadow-lg transition-all duration-300 ${
+        isHovered && isActive ? "p-4 min-w-[280px]" : "p-3"
       }`}>
-        <div className="flex items-start gap-4">
+        <div className="flex items-center gap-3">
           {isActive && nowPlaying.albumImageUrl ? (
             <div className="relative flex-shrink-0">
               <img 
                 src={nowPlaying.albumImageUrl} 
                 alt="Album" 
-                className={`object-cover rounded-xl transition-all duration-300 ${
-                  isHovered ? "w-16 h-16" : "w-12 h-12"
+                className={`object-cover rounded transition-all duration-300 ${
+                  isHovered ? "w-12 h-12" : "w-10 h-10"
                 }`}
               />
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-primary rounded-full flex items-center justify-center">
+                <div className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-pulse" />
               </div>
             </div>
           ) : (
-            <div className={`bg-slate-800 flex items-center justify-center rounded-xl transition-all duration-300 ${
-              isHovered ? "w-16 h-16" : "w-12 h-12"
+            <div className={`bg-muted flex items-center justify-center rounded transition-all duration-300 ${
+              isHovered ? "w-12 h-12" : "w-10 h-10"
             }`}>
-              <Music className={`text-slate-400 transition-all duration-300 ${
-                isHovered ? "w-8 h-8" : "w-6 h-6"
+              <Music className={`text-muted-foreground transition-all duration-300 ${
+                isHovered ? "w-6 h-6" : "w-5 h-5"
               }`} />
             </div>
           )}
           
           {isHovered ? (
-            <div className="flex-1 min-w-0 pt-1">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
                 <div className={`w-2 h-2 rounded-full ${
-                  isActive ? 'bg-green-500 animate-pulse' : 'bg-slate-500'
+                  isActive ? 'bg-primary animate-pulse' : 'bg-muted-foreground'
                 }`} />
-                <span className="text-xs font-semibold text-green-400 uppercase tracking-wider">
-                  {isActive ? 'Právě hraje' : 'Offline'}
+                <span className="text-xs font-medium text-primary uppercase tracking-wider">
+                  {isActive ? 'Hraje' : 'Offline'}
                 </span>
               </div>
               
               {isActive ? (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <a 
                     href={nowPlaying.songUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="font-semibold text-base text-white truncate block hover:text-green-400 transition-colors flex items-center gap-2 group/link"
+                    className="font-semibold text-sm truncate block hover:text-primary transition-colors flex items-center gap-1.5 group/link"
                   >
                     <span className="truncate">{nowPlaying.title}</span>
                     <ExternalLink className="w-3 h-3 opacity-0 group-hover/link:opacity-100 transition-opacity flex-shrink-0" />
                   </a>
-                  <p className="text-sm text-slate-400 truncate">{nowPlaying.artist}</p>
+                  <p className="text-xs text-muted-foreground truncate">{nowPlaying.artist}</p>
                   
                   {nowPlaying.duration && (
-                    <div className="mt-3 space-y-2">
-                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="mt-2 space-y-1">
+                      <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-green-500 rounded-full transition-all duration-100"
+                          className="h-full bg-primary rounded-full transition-all duration-100"
                           style={{ width: `${Math.min((localProgress / nowPlaying.duration) * 100, 100)}%` }}
                         />
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-xs text-slate-500 font-mono">
+                        <span className="text-[10px] text-muted-foreground font-mono">
                           {formatTime(localProgress)}
                         </span>
-                        <span className="text-xs text-slate-500 font-mono">
+                        <span className="text-[10px] text-muted-foreground font-mono">
                           {formatTime(nowPlaying.duration)}
                         </span>
                       </div>
@@ -182,22 +182,22 @@ const SpotifyNowPlaying = () => {
                 </div>
               ) : (
                 <div>
-                  <p className="text-base font-semibold text-slate-400">Spotify</p>
-                  <p className="text-xs text-slate-600 mt-1">Nehraje</p>
+                  <p className="text-sm font-medium text-muted-foreground">Spotify</p>
+                  <p className="text-xs text-muted-foreground/60">Nehraje</p>
                 </div>
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${
-                isActive ? 'bg-green-500 animate-pulse' : 'bg-slate-500'
+                isActive ? 'bg-primary animate-pulse' : 'bg-muted-foreground'
               }`} />
-              <div>
-                <span className="text-sm font-semibold text-white block">
+              <div className="min-w-0">
+                <span className="text-sm font-medium block truncate max-w-[120px]">
                   {isActive ? (nowPlaying.title || 'Spotify') : 'Spotify'}
                 </span>
                 {isActive && nowPlaying.artist && (
-                  <span className="text-xs text-slate-400 block truncate max-w-[150px]">
+                  <span className="text-xs text-muted-foreground block truncate max-w-[120px]">
                     {nowPlaying.artist}
                   </span>
                 )}
