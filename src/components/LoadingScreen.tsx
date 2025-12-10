@@ -165,7 +165,6 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadComplete, minDispla
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 select-none">
           Bloby<span className="text-primary">CZ</span>
         </h1>
-        <p className="text-sm text-muted-foreground font-mono">Načítání portfolia…</p>
       </div>
       <div className="w-64 md:w-80">
         <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-4">
