@@ -40,9 +40,12 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 px-6 lg:px-12 bg-secondary/50">
       <div className="max-w-6xl mx-auto">
-        <div ref={ref} className={`transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}>
+        <div
+          ref={ref}
+          className={`transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           {/* Header */}
           <div className="mb-12">
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-primary mb-4 block">
@@ -57,15 +60,15 @@ const Contact = () => {
           </div>
 
           {/* Contact Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {contactInfo.map((info, index) => (
               <div
                 key={info.label}
-                style={{ 
+                style={{
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transform: isVisible ? "translateY(0)" : "translateY(20px)",
                   transitionDelay: `${index * 80}ms`,
-                  transition: 'all 0.5s ease'
+                  transition: "all 0.5s ease",
                 }}
               >
                 {info.link ? (
@@ -73,20 +76,26 @@ const Contact = () => {
                     href={info.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-4 bg-card border border-border rounded-lg hover:border-primary/50 transition-all text-center group"
+                    className="block p-4 bg-card border border-border rounded-lg hover:border-primary/50 transition-all text-center group h-full"
                   >
                     <div className="inline-flex p-2 mb-3 text-muted-foreground group-hover:text-primary transition-colors">
                       {info.icon}
                     </div>
-                    <div className="text-xs text-muted-foreground mb-1">{info.label}</div>
-                    <div className="text-sm font-medium truncate">{info.value}</div>
+                    <div className="text-xs text-muted-foreground mb-1">
+                      {info.label}
+                    </div>
+                    <div className="text-sm font-medium truncate">
+                      {info.value}
+                    </div>
                   </a>
                 ) : (
-                  <div className="p-4 bg-card border border-border rounded-lg text-center">
+                  <div className="p-4 bg-card border border-border rounded-lg text-center h-full">
                     <div className="inline-flex p-2 mb-3 text-muted-foreground">
                       {info.icon}
                     </div>
-                    <div className="text-xs text-muted-foreground mb-1">{info.label}</div>
+                    <div className="text-xs text-muted-foreground mb-1">
+                      {info.label}
+                    </div>
                     <div className="text-sm font-medium">{info.value}</div>
                   </div>
                 )}
@@ -96,8 +105,8 @@ const Contact = () => {
 
           {/* CTA */}
           <div className="mt-12 text-center">
-            <a 
-              href="mailto:michal@bloby.eu" 
+            <a
+              href="mailto:michal@bloby.eu"
               className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
             >
               Napište mi →
