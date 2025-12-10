@@ -8,64 +8,48 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 9%;
-
     --card: 0 0% 100%;
     --card-foreground: 0 0% 9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
-
     --primary: 142 70% 45%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 9%;
-
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-
     --accent: 142 70% 45%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 142 70% 45%;
-
+    --neon: 142 70% 45%;
     --radius: 0.5rem;
   }
 
   .dark {
     --background: 0 0% 5%;
     --foreground: 0 0% 98%;
-
     --card: 0 0% 7%;
     --card-foreground: 0 0% 98%;
-
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 142 70% 50%;
     --primary-foreground: 0 0% 5%;
-
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
-
     --accent: 142 70% 50%;
     --accent-foreground: 0 0% 5%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 15%;
     --input: 0 0% 15%;
     --ring: 142 70% 50%;
-
+    --neon: 142 70% 50%;
     --radius: 0.5rem;
   }
 }
@@ -86,6 +70,10 @@
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
 }
 
 @layer components {
@@ -95,5 +83,13 @@
 
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .neon-border {
+    @apply border-2 border-primary shadow-[0_0_15px_rgba(var(--primary)/0.3)];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
 }
