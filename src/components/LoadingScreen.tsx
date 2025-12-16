@@ -71,7 +71,6 @@ const PACKAGES = [
   "eslint-plugin-react-hooks",
   "eslint-plugin-react-refresh",
   "globals",
-  "lovable-tagger",
   "postcss",
   "tailwindcss",
   "typescript",
