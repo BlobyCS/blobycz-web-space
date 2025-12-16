@@ -6,22 +6,19 @@ const Testimonials = () => {
 
   const testimonials = [
     {
-      name: "Jan Novák",
-      role: "Backend Developer",
-      company: "TechCorp",
-      text: "Skvělá spolupráce! Výborné znalosti Javy a Discord API. Projekt byl dodán včas.",
+      name: "Ziky",
+      role: "Video Editor",
+      text: "Jsem nadměrně spokojen, Bloby udělal vše, co jsem po botovi chtěl a funguje překrásně. Doporučuji!",
     },
     {
-      name: "Petra Svobodová",
-      role: "Project Manager",
-      company: "DevStudio",
-      text: "Profesionální přístup a rychlá komunikace. Dokáže vyřešit i ty nejtěžší problémy.",
+      name: "Blob",
+      role: "JavaScript Developer, Slovensko",
+      text: "Super a rýchlo všetko spravil, úplná spokojnosť! 11/10",
     },
     {
-      name: "Martin Dvořák",
-      role: "CTO",
-      company: "StartupXYZ",
-      text: "Nejlepší Discord bot developer, se kterým jsem měl tu čest pracovat.",
+      name: "Lucki",
+      role: "Grafik",
+      text: "Celkově si myslím že děláš super práci boti vypadají supr i když mají občas pár nedokonalostí jsou dobré libí se mi pěkné embedy a funkce co dokážeš udělat",
     },
   ];
 
