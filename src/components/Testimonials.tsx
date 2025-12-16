@@ -8,16 +8,19 @@ const Testimonials = () => {
     {
       name: "Ziky",
       role: "Video Editor",
+      company: "ZikyZone",
       text: "Jsem nadměrně spokojen, Bloby udělal vše, co jsem po botovi chtěl a funguje překrásně. Doporučuji!",
     },
     {
       name: "Blob",
       role: "JavaScript Developer, Slovensko",
+      company: "",
       text: "Super a rýchlo všetko spravil, úplná spokojnosť! 11/10",
     },
     {
       name: "Lucki",
       role: "Grafik",
+      company: "",
       text: "Celkově si myslím že děláš super práci boti vypadají supr i když mají občas pár nedokonalostí jsou dobré libí se mi pěkné embedy a funkce co dokážeš udělat",
     },
   ];
