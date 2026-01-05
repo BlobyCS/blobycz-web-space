@@ -15,7 +15,6 @@ const Skills = () => {
     { name: "VS Code", icon: "vscode" },
     { name: "Terminal", icon: "bash" },
     { name: "Linux", icon: "linux" },
-    { name: "Docker", icon: "docker" },
     { name: "Node.js", icon: "nodejs" },
     { name: "TypeScript", icon: "typescript" },
     { name: "IntelliJ IDEA", icon: "idea" },
