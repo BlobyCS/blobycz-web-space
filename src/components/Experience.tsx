@@ -16,7 +16,7 @@ const Experience = () => {
     {
       title: "Java Plugin Developer",
       company: "xTyping",
-      period: "2023 — 2025 (Pause)",
+      period: "2025 — Pause",
       description: "Vývoj custom Minecraft pluginů pro servery.",
       highlights: ["Custom game modes", "Spigot/Paper API", "Optimalizace"],
     },
