@@ -35,19 +35,21 @@ const Hero = () => {
               <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">Bloby</span>
               <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">CZ</span>
             </h1>
-            <div className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-light">
-              <TypingEffect 
-                texts={[
-                  "Discord Bot Developer",
-                  "Java Developer",
-                  "TypeScript Enthusiast",
-                  "Minecraft Plugin Dev"
-                ]}
-                typingSpeed={80}
-                deletingSpeed={40}
-                delayBetweenTexts={2000}
-              />
-              <span className="inline-block w-0.5 h-6 md:h-8 bg-primary ml-1 animate-pulse" />
+            <div className="text-2xl sm:text-3xl md:text-4xl font-medium">
+              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                <TypingEffect 
+                  texts={[
+                    "Discord Bot Developer",
+                    "Java Developer",
+                    "TypeScript Enthusiast",
+                    "Minecraft Plugin Dev"
+                  ]}
+                  typingSpeed={80}
+                  deletingSpeed={40}
+                  delayBetweenTexts={2000}
+                />
+              </span>
+              <span className="inline-block w-1 h-8 md:h-10 bg-primary ml-2 animate-pulse rounded-full" />
             </div>
           </div>
 
