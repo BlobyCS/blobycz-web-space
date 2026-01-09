@@ -36,9 +36,9 @@ const DEFAULT_PROJECTS: Project[] = [
   },
   {
     title: "InsaneKick",
-    description: "Užitečný nástroj pro správu a automatizaci různých úkolů.",
-    tech: ["JavaScript", "Node.js"],
-    type: "Utility",
+    description: "Minecraft plugin, který tě kickne ze serveru, když umřeš - pro hardcore zážitek.",
+    tech: ["Java", "Spigot API", "Minecraft"],
+    type: "Minecraft Plugin",
     link: "https://github.com/Bloby22/InsaneKick",
     status: "completed",
   },
