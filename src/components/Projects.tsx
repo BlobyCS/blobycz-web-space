@@ -26,6 +26,22 @@ const DEFAULT_PROJECTS: Project[] = [
     link: "https://github.com/Bloby22/ZikyZone",
     status: "active",
   },
+  {
+    title: "MessageBot",
+    description: "Discord bot pro posílání zpráv s barevnými embedy a pokročilým formátováním.",
+    tech: ["TypeScript", "Discord.js", "Node.js"],
+    type: "Discord Bot",
+    link: "https://github.com/Bloby22/MessageBot",
+    status: "active",
+  },
+  {
+    title: "InsaneKick",
+    description: "Užitečný nástroj pro správu a automatizaci různých úkolů.",
+    tech: ["JavaScript", "Node.js"],
+    type: "Utility",
+    link: "https://github.com/Bloby22/InsaneKick",
+    status: "completed",
+  },
 ];
 
 const ProjectCard = ({ project, index, isVisible }: ProjectCardProps) => {
