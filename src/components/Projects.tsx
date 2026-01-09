@@ -26,14 +26,6 @@ const DEFAULT_PROJECTS: Project[] = [
     link: "https://github.com/Bloby22/ZikyZone",
     status: "active",
   },
-  {
-    title: "InsaneKick",
-    description: "Minecraft plugin přidávající nové funkce a zlepšující herní zážitek.",
-    tech: ["Java", "Spigot API", "Minecraft"],
-    type: "Minecraft Plugin",
-    link: "https://github.com/Bloby22/InsaneKick",
-    status: "completed",
-  },
 ];
 
 const ProjectCard = ({ project, index, isVisible }: ProjectCardProps) => {
