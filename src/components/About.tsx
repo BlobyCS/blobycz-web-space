@@ -11,7 +11,6 @@ const About = () => {
   ];
 
   const technologies = [
-    "Java",
     "JavaScript",
     "TypeScript",
     "Node.js",
@@ -85,8 +84,8 @@ const About = () => {
 
               <p className="text-muted-foreground leading-relaxed">
                 Pocházím z Brna a mám rád technologie, hudbu a dělání
-                smysluplných projektů. Kóďím převážně v <span className="text-foreground font-medium">Javě</span> a <span className="text-foreground font-medium">JavaScriptu</span>,
-                tvořím Minecraft pluginy, Discord boty a NPM balíčky.
+                smysluplných projektů. Kóďím převážně v <span className="text-foreground font-medium">JavaScriptu</span> a <span className="text-foreground font-medium">TypeScriptu</span>,
+                tvořím Discord boty a NPM balíčky.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">

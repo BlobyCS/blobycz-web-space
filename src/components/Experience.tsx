@@ -13,13 +13,6 @@ const Experience = () => {
         "Vytváření moderních Discord botů s pokročilými funkcemi.",
       highlights: ["10+ botů", "Moderační systémy", "Optimalizace výkonu"],
     },
-    {
-      title: "Java Plugin Developer",
-      company: "xTyping",
-      period: "2025 — Pause",
-      description: "Vývoj custom Minecraft pluginů pro servery.",
-      highlights: ["Custom game modes", "Spigot/Paper API", "Optimalizace"],
-    },
   ];
 
   return (
