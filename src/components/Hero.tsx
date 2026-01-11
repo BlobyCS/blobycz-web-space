@@ -96,15 +96,15 @@ const Hero = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full backdrop-blur-sm hover:bg-primary/15 hover:border-primary/30 transition-all duration-300 cursor-default group">
-            <span className="relative flex h-2 w-2">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-full backdrop-blur-md hover:from-primary/15 hover:to-primary/10 hover:border-primary/40 transition-all duration-500 cursor-default group shadow-lg shadow-primary/5">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary shadow-sm shadow-primary/50" />
             </span>
-            <span className="text-sm text-foreground font-medium">
+            <span className="text-sm text-foreground font-medium tracking-wide">
               Připraven na spolupráci
             </span>
-            <Sparkles className="w-3.5 h-3.5 text-primary group-hover:rotate-12 transition-transform" />
+            <Sparkles className="w-4 h-4 text-primary group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
           </div>
 
           {/* Main Title */}
@@ -150,27 +150,26 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <a 
               href="#projects" 
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-semibold rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-primary/25 btn-glow"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </span>
-              <span className="relative z-10">Zobrazit projekty</span>
-              <ArrowDown className="relative z-10 w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              <span className="absolute -inset-1 bg-primary/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10 tracking-wide">Zobrazit projekty</span>
+              <ArrowDown className="relative z-10 w-4 h-4 group-hover:translate-y-1 transition-transform duration-300" />
             </a>
             <a 
               href="#contact" 
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary border border-border font-semibold rounded-xl overflow-hidden hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-card/50 backdrop-blur-xl border border-border/50 font-semibold rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1.5 hover:bg-card/80 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10">Kontaktovat</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="relative z-10 tracking-wide">Kontaktovat</span>
             </a>
           </div>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-8 pt-16 mt-8">
+          <div className="grid grid-cols-3 gap-6 pt-16 mt-8">
             {[
               { value: "2+", label: "Roky zkušeností", gradient: true },
               { value: "10+", label: "Projektů", gradient: false },
@@ -178,19 +177,19 @@ const Hero = () => {
             ].map((stat, index) => (
               <div 
                 key={stat.label} 
-                className="relative group cursor-default"
+                className="relative group cursor-default p-6 rounded-2xl bg-gradient-to-br from-card/60 to-card/30 backdrop-blur-lg border border-border/30 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent group-hover:via-primary/50 transition-colors duration-300" />
-                <div className="pt-8">
-                  <div className={`text-4xl md:text-5xl font-bold group-hover:scale-105 transition-transform duration-300 ${
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative">
+                  <div className={`text-4xl md:text-5xl font-bold group-hover:scale-105 transition-all duration-500 ${
                     stat.gradient 
-                      ? 'bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent' 
+                      ? 'bg-gradient-to-br from-primary via-primary to-primary/60 bg-clip-text text-transparent' 
                       : 'group-hover:text-primary transition-colors'
                   }`}>
                     {stat.value}
                   </div>
-                  <div className="text-sm text-muted-foreground mt-2 font-medium group-hover:text-foreground transition-colors duration-300">
+                  <div className="text-sm text-muted-foreground mt-3 font-medium group-hover:text-foreground transition-colors duration-500 tracking-wide">
                     {stat.label}
                   </div>
                 </div>
