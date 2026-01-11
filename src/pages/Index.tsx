@@ -10,10 +10,14 @@ import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-background relative overflow-x-hidden">
+      <AnimatedBackground />
+      <ParticleBackground />
       <ScrollProgressBar />
       <Navbar />
       <SpotifyNowPlaying />

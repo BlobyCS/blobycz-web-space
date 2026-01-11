@@ -22,15 +22,15 @@ interface ParticleConfig {
 }
 
 const DEFAULT_CONFIG: ParticleConfig = {
-  count: 50,
-  maxSpeed: 0.5,
+  count: 60,
+  maxSpeed: 0.3,
   minSize: 1,
-  maxSize: 3,
-  minOpacity: 0.1,
-  maxOpacity: 0.6,
-  connectionDistance: 150,
-  connectionOpacity: 0.15,
-  color: "167, 139, 250", // Purple in RGB
+  maxSize: 2.5,
+  minOpacity: 0.15,
+  maxOpacity: 0.5,
+  connectionDistance: 120,
+  connectionOpacity: 0.12,
+  color: "74, 222, 128", // Green (primary) in RGB
 };
 
 const ParticleBackground = ({ config = DEFAULT_CONFIG }: { config?: Partial<ParticleConfig> }) => {
