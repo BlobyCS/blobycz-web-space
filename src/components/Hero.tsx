@@ -128,9 +128,7 @@ const Hero = () => {
                 <TypingEffect 
                   texts={[
                     "Discord Bot Developer",
-                    "Java Developer",
-                    "TypeScript Enthusiast",
-                    "Minecraft Plugin Dev"
+                    "TypeScript Enthusiast"
                   ]}
                   typingSpeed={80}
                   deletingSpeed={40}
