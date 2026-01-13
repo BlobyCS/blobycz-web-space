@@ -24,7 +24,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["Node.js", "JavaScript", "NPM API"],
     type: "NPM Package",
     link: "https://www.npmjs.com/package/pckgi",
-    githubStars: 2,
+    githubStars: 1,
     status: "active",
   },
   {
@@ -33,7 +33,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["JavaScript", "Discord.js", "Node.js"],
     type: "Discord Bot",
     link: "https://github.com/Bloby22/ZikyZone",
-    githubStars: 5,
+    githubStars: 1,
     status: "active",
   },
   {
@@ -42,7 +42,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["TypeScript", "Discord.js", "Node.js"],
     type: "Discord Bot",
     link: "https://github.com/Bloby22/MessageBot",
-    githubStars: 3,
+    githubStars: 1,
     status: "active",
   },
   {
@@ -51,7 +51,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["Java", "Spigot API", "Minecraft"],
     type: "Minecraft Plugin",
     link: "https://github.com/Bloby22/InsaneKick",
-    githubStars: 8,
+    githubStars: 3,
     status: "completed",
   },
 ];
