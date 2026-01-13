@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { ArrowUpRight, Github, Sparkles } from "lucide-react";
+import { useGithubStars } from "@/hooks/useGithubStars";
+import { ArrowUpRight, Github, Sparkles, Loader2 } from "lucide-react";
 
 interface Project {
   title: string;
@@ -7,6 +9,7 @@ interface Project {
   tech: string[];
   type: string;
   link: string;
+  githubUrl?: string;
   githubStars?: number;
   status?: "active" | "completed" | "archived";
 }
@@ -15,6 +18,8 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   isVisible: boolean;
+  dynamicStars?: number | null;
+  loadingStars?: boolean;
 }
 
 const DEFAULT_PROJECTS: Project[] = [
@@ -24,7 +29,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["Node.js", "JavaScript", "NPM API"],
     type: "NPM Package",
     link: "https://www.npmjs.com/package/pckgi",
-    githubStars: 1,
+    githubUrl: "https://github.com/Bloby22/pckgi",
     status: "active",
   },
   {
@@ -33,7 +38,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["JavaScript", "Discord.js", "Node.js"],
     type: "Discord Bot",
     link: "https://github.com/Bloby22/ZikyZone",
-    githubStars: 1,
+    githubUrl: "https://github.com/Bloby22/ZikyZone",
     status: "active",
   },
   {
@@ -42,7 +47,7 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["TypeScript", "Discord.js", "Node.js"],
     type: "Discord Bot",
     link: "https://github.com/Bloby22/MessageBot",
-    githubStars: 1,
+    githubUrl: "https://github.com/Bloby22/MessageBot",
     status: "active",
   },
   {
@@ -51,12 +56,12 @@ const DEFAULT_PROJECTS: Project[] = [
     tech: ["Java", "Spigot API", "Minecraft"],
     type: "Minecraft Plugin",
     link: "https://github.com/Bloby22/InsaneKick",
-    githubStars: 3,
+    githubUrl: "https://github.com/Bloby22/InsaneKick",
     status: "completed",
   },
 ];
 
-const ProjectCard = ({ project, index, isVisible }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, isVisible, dynamicStars, loadingStars }: ProjectCardProps) => {
   const statusConfig = {
     active: { 
       bg: "bg-emerald-500/10", 
@@ -128,10 +133,14 @@ const ProjectCard = ({ project, index, isVisible }: ProjectCardProps) => {
             )}
           </div>
           <div className="flex items-center gap-2">
-            {project.githubStars && (
+            {project.githubUrl && (
               <span className="text-xs text-muted-foreground flex items-center gap-1 group-hover:text-primary transition-colors duration-300">
                 <Github className="w-3 h-3" />
-                {project.githubStars}
+                {loadingStars ? (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                ) : (
+                  dynamicStars ?? "—"
+                )}
               </span>
             )}
             <div className="p-2 bg-muted/50 rounded-lg group-hover:bg-primary group-hover:rotate-45 transition-all duration-300">
@@ -170,6 +179,14 @@ const ProjectCard = ({ project, index, isVisible }: ProjectCardProps) => {
 
 const Projects = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  
+  // Get all GitHub URLs for dynamic star fetching
+  const githubUrls = useMemo(
+    () => DEFAULT_PROJECTS.map((p) => p.githubUrl).filter(Boolean) as string[],
+    []
+  );
+  
+  const { stars, loading } = useGithubStars(githubUrls);
 
   return (
     <section id="projects" className="py-24 px-6 lg:px-12 relative">
@@ -198,6 +215,8 @@ const Projects = () => {
                 project={project}
                 index={index}
                 isVisible={isVisible}
+                dynamicStars={project.githubUrl ? stars[project.githubUrl] : undefined}
+                loadingStars={loading}
               />
             ))}
           </div>
