@@ -19,6 +19,14 @@ interface ProjectCardProps {
 
 const DEFAULT_PROJECTS: Project[] = [
   {
+    title: "Pckgi",
+    description: "CLI terminál s integrovaným NPM API pro rychlé vyhledávání a správu npm balíčků přímo z příkazové řádky.",
+    tech: ["Node.js", "JavaScript", "NPM API"],
+    type: "NPM Package",
+    link: "https://www.npmjs.com/package/pckgi",
+    status: "active",
+  },
+  {
     title: "ZikyZone",
     description: "Moderní Discord bot s pokročilými funkcemi pro správu serverů a zábavu uživatelů.",
     tech: ["JavaScript", "Discord.js", "Node.js"],
