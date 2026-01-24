@@ -12,10 +12,13 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ParticleBackground from "@/components/ParticleBackground";
+import MaintenanceOverlay from "@/components/MaintenanceOverlay";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
+    <>
+      <MaintenanceOverlay />
+      <div className="min-h-screen bg-background relative overflow-x-hidden">
       <AnimatedBackground />
       <ParticleBackground />
       <ScrollProgressBar />
@@ -30,7 +33,8 @@ const Index = () => {
       <Testimonials />
       <Contact />
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 
